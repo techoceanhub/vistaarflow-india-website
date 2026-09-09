@@ -1,0 +1,12 @@
+/*
+Theme Name: VistaarFlow CRM
+Theme URI: https://app.vistaarflow.in/
+Author: TechOceanHub
+Description: Elegant, conversion-focused CRM theme with native Elementor support.
+Version: 1.0.0
+Requires at least: 6.0
+Requires PHP: 7.4
+Text Domain: vistaarflow
+*/
+
+/* Production styles are enqueued from assets/css/main.css in functions.php. */
