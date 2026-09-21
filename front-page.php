@@ -8,8 +8,10 @@
         <h1>One CRM. Built for <em>Growing Businesses.</em></h1>
         <p>From startups and small businesses to real estate teams, VistaarFlow helps you capture leads, automate
           follow-ups, manage pipelines, and close more opportunities from one place.</p>
-        <div class="hero-actions"><a class="button" href="https://app.vistaarflow.in/signup">Start growing free
-            <span>→</span></a><a class="button-ghost" href="#platform"><i>▶</i> Explore the platform</a></div>
+        <div class="hero-actions">
+  <a class="button" href="https://app.vistaarflow.in/signup">Start 14 days free-trial <span>→</span></a>
+  <a class="button2" href="#contact"><i>▶</i> Schedule Demo</a>
+</div>
         <div class="trust-row">
           <div class="avatars"><b>VK</b><b>AM</b><b>RS</b><b>+</b></div>
           <p><strong>Simple setup. Real support.</strong><br>No credit card required</p>
@@ -45,8 +47,232 @@
       </div>
     </div>
   </section>
-  <section class="offer-banner">
-    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/offerbanner.png'); ?>" alt="">
+  <style id="vistaarflow-integrations-bar">
+    .integrations-bar {
+      background: #fff;
+      padding: 34px 0 30px;
+      overflow: hidden;
+    }
+
+    .integrations-bar .container {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .integrations-bar-text {
+      flex: 0 0 auto;
+      max-width: 230px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #0b1220;
+    }
+
+    /* Marquee viewport */
+    .integrations-bar-marquee {
+      position: relative;
+      flex: 1 1 auto;
+      overflow: hidden;
+      columns: black;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+    }
+
+    .integrations-bar-track {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      gap: 56px;
+      animation: integrations-bar-scroll 28s linear infinite;
+    }
+
+    .integrations-bar-marquee:hover .integrations-bar-track {
+      animation-play-state: paused;
+    }
+
+    .integrations-bar-item {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      height: 34px;
+      white-space: nowrap;
+    }
+
+    .integrations-bar-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: #215af8;
+      transition: color .2s ease;
+    }
+
+    .integrations-bar-item span {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #215af8;
+      transition: color .2s ease;
+    }
+
+    .integrations-bar-item:hover svg,
+    .integrations-bar-item:hover span {
+      color: #031649;
+    }
+
+    @keyframes integrations-bar-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        /* moves exactly one full (unduplicated) set width to the left for a seamless loop */
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 780px) {
+      .integrations-bar .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .integrations-bar-text {
+        max-width: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .integrations-bar-track {
+        animation: none;
+      }
+
+      .integrations-bar-marquee {
+        overflow-x: auto;
+      }
+    }
+  </style>
+
+  <section class="integrations-bar">
+    <div class="container">
+      <p class="integrations-bar-text">Integrated with the tools you already use</p>
+
+      <div class="integrations-bar-marquee">
+        <?php
+        /*
+         * One entry per integration. `svg` is a small inline icon (currentColor, so it
+         * inherits the grayscale/hover-color behaviour automatically) — leave it empty
+         * to show just the text label. Duplicated once below for a seamless loop.
+         */
+        $integrations = [
+          [
+            'name' => 'WhatsApp',
+            'svg' => '<path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 3.9 3.5.5.2.9.4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3z" fill="currentColor"/>',
+          ],
+          [
+            'name' => 'Meta',
+            'svg' => '<path d="M14.5 21v-7.6h2.6l.4-3H14.5v-1.9c0-.9.3-1.5 1.6-1.5h1.6V4.3c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.1H8.7v3h2.6V21h3.2z" fill="currentColor"/>',
+          ],
+          [
+            'name' => 'Gmail',
+            'svg' => '<path d="M3 6.5A1.5 1.5 0 014.5 5h15A1.5 1.5 0 0121 6.5v11a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 17.5v-11zm2 .3v.2l7 5.2 7-5.2v-.2l-7 5-7-5z" fill="currentColor"/>',
+          ],
+          [
+            'name' => 'Microsoft',
+            'svg' => '
+        <rect x="3" y="3" width="8" height="8" fill="currentColor"/>
+        <rect x="13" y="3" width="8" height="8" fill="currentColor"/>
+        <rect x="3" y="13" width="8" height="8" fill="currentColor"/>
+        <rect x="13" y="13" width="8" height="8" fill="currentColor"/>
+    ',
+          ],
+          [
+            'name' => 'Plivio',
+            'svg' => '<path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>',
+          ],
+          // [
+          //   'name' => 'Zapier',
+          //   'svg' => '<path d="M11 2h2v8.6L19.7 5l1.4 1.4-6.5 6.6H23v2h-8.4l6.5 6.6-1.4 1.4-6.7-6.6V22h-2v-8.6L4.3 20 2.9 18.6l6.5-6.6H1v-2h8.4L2.9 5.4 4.3 4l6.7 6.6V2z" fill="currentColor"/>',
+          // ],
+          [
+            'name' => '99acres',
+            'svg' => '<path d="M3 10.5L12 3l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>',
+          ],
+          [
+            'name' => 'MagicBricks',
+            'svg' => '<rect x="4" y="4" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="13" y="4" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="4" y="13" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="13" y="13" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6" fill="none"/>',
+          ],
+          [
+            'name' => 'Housing.com',
+            'svg' => '<path d="M4 11l8-7 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M6 10v9a1 1 0 001 1h10a1 1 0 001-1v-9" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>',
+          ],
+          [
+            'name' => 'Open Ai',
+            'svg' => '
+        <path d="M12 3a4 4 0 013.5 2 4 4 0 014.5 4 4 4 0 01-.5 6
+        4 4 0 01-3.5 5 4 4 0 01-6.5 1 4 4 0 01-5-4
+        4 4 0 01.5-6 4 4 0 013.5-5A4 4 0 0112 3z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+        <path d="M9 8l6 3.5v7M15 8l-6 3.5v7M6 11.5l6 3.5 6-3.5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+    ',
+          ],
+
+          [
+            'name' => 'Gemini',
+            'svg' => '
+        <path d="M12 2
+        C12.7 7.3 16.7 11.3 22 12
+        C16.7 12.7 12.7 16.7 12 22
+        C11.3 16.7 7.3 12.7 2 12
+        C7.3 11.3 11.3 7.3 12 2Z"
+        fill="currentColor"/>
+    ',
+          ],
+
+          [
+            'name' => 'Claude',
+            'svg' => '
+        <path d="M12 3v18M3 12h18
+        M5.6 5.6l12.8 12.8
+        M18.4 5.6L5.6 18.4
+        M8.5 3.8l7 16.4
+        M15.5 3.8l-7 16.4
+        M3.8 8.5l16.4 7
+        M3.8 15.5l16.4-7"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        stroke-linecap="round"/>
+    ',
+          ],
+        ];
+
+        // Duplicate the list once so the marquee can loop seamlessly (translateX(-50%)).
+        $integrations_loop = array_merge($integrations, $integrations);
+        ?>
+        <div class="integrations-bar-track">
+          <?php foreach ($integrations_loop as $item): ?>
+            <div class="integrations-bar-item">
+              <?php if (!empty($item['svg'])): ?>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><?php echo $item['svg']; ?></svg>
+              <?php endif; ?>
+              <span><?php echo esc_html($item['name']); ?></span>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
   </section>
   <section class="trial-strip" aria-label="14-day free trial offer">
     <div class="trial-strip-bg" aria-hidden="true">
@@ -56,10 +282,11 @@
     </div>
     <div class="container trial-strip-inner">
       <div class="trial-strip-text">
-        <span class="trial-strip-badge">14-DAY FREE TRIAL</span>
+        <span class="trial-strip-badge trial-strip-cta">14-DAY FREE TRIAL</span>
         <h3>Try VistaarFlow, free for 14 days.</h3>
         <p>Full access to leads, pipelines, automation and AI — explore everything before you commit.</p>
         <div class="trial-strip-perks">
+          <span>✓ No Card Required</span>
           <span>✓ No Restrictions</span>
           <span>✓ Cancel anytime</span>
           <span>✓ Guided setup included</span>
@@ -68,6 +295,10 @@
       <a class="trial-strip-cta" href="https://app.vistaarflow.in/signup">Start free trial →</a>
     </div>
   </section>
+  <section class="offer-banner">
+    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/offerbanner.png'); ?>" alt="">
+  </section>
+
   <section class="audience-section" aria-labelledby="audience-title">
     <div class="container">
       <div class="audience-heading reveal">
@@ -106,7 +337,7 @@
     <div class="container">
 
       <div class="wa-heading reveal">
-        <div class="eyebrow">WHATSAPP BUSINESS API &amp; CAMPAIGNS</div>
+        <div class="eyebrow">WHATSAPP BULK MESSAGING &amp; CAMPAIGNS</div>
         <h2 id="whatsapp-title">Promotional WhatsApp messages,<br><em>sent the smart way.</em></h2>
         <p>VistaarFlow turns WhatsApp into a real sales channel. Use the built-in WhatsApp bulk message sender to run
           approved promotional WhatsApp campaigns, connect the official WhatsApp Business API for two-way conversations,
@@ -581,7 +812,6 @@
       </div>
     </div>
   </section>
-
   <style id="vistaarflow-pricing-overflow-fix">
     #pricing .pricing-grid .price-card,
     #pricing .pricing-grid .price-card ul {
@@ -597,51 +827,618 @@
       width: 0 !important;
       height: 0 !important
     }
+
+    /* ---------- Heading + trust badges ---------- */
+    .pricing-hero {
+      text-align: center;
+      /* max-width: 900px; */
+      margin: 0 auto 8px;
+    }
+
+    .pricing-hero h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      font-weight: 800;
+      line-height: 1.15;
+      color: #0b1220;
+      margin: 0 0 22px;
+    }
+
+    .pricing-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px 22px;
+      margin: 0 0 40px;
+    }
+
+    .pricing-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #0b1220;
+      white-space: nowrap;
+    }
+
+    .pricing-badge.pricing-badge-highlight {
+      background: #d9f5e3;
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    .pricing-badge-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #17a768;
+      color: #17a768;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pricing-badge-check svg {
+      width: 11px;
+      height: 11px;
+    }
+
+    /* ---------- Pill billing toggle + callout ---------- */
+    .billing-toggle-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 0 auto 44px;
+      flex-wrap: wrap;
+    }
+
+    .billing-pill {
+      position: relative;
+      display: inline-flex;
+      background: #fff;
+      border: 1px solid #dfe4ec;
+      border-radius: 999px;
+      padding: 4px;
+      box-shadow: 0 2px 10px rgba(11, 18, 32, .06);
+    }
+
+    .billing-pill button {
+      position: relative;
+      z-index: 2;
+      border: none;
+      background: transparent;
+      padding: 10px 26px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #5b6472;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: color .2s ease;
+    }
+
+    .billing-pill button.active {
+      color: #fff;
+    }
+
+    .billing-pill-thumb {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      height: calc(100% - 8px);
+      width: calc(50% - 4px);
+      background: #0b1a3d;
+      border-radius: 999px;
+      transition: transform .25s ease;
+      z-index: 1;
+    }
+
+    .billing-pill-thumb.is-yearly {
+      transform: translateX(100%);
+    }
+
+    .billing-callout {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #0b1220;
+      line-height: 1.35;
+    }
+
+    .billing-callout-arrow {
+      color: #17a768;
+      flex-shrink: 0;
+    }
+
+    .billing-callout-arrow svg {
+      width: 34px;
+      height: 34px;
+    }
+
+    .billing-callout strong {
+      display: block;
+      color: #0b1220;
+    }
+
+    @media (max-width: 640px) {
+      .billing-callout-arrow {
+        display: none;
+      }
+    }
+
+    /* ---------- Price block + per-user price ---------- */
+    .price-card .price {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      row-gap: 2px;
+    }
+
+    .price-card .price .price-strike {
+      text-decoration: line-through;
+      color: #b6bcc7;
+      font-size: 15px;
+      font-weight: 600;
+      margin-right: 6px;
+    }
+
+    .price-card .price-per-user-line {
+      flex-basis: 100%;
+      /* display: inline-flex;
+      align-items: baseline; */
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0b6b3f;
+      background: #eafaf1;
+      border: 1px solid #bfe9d3;
+      border-radius: 8px;
+      padding: 6px 5px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      width: fit-content;
+    }
+
+    .price-card .price-per-user-line strong {
+      color: #0b1220;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .price-card .price-period-note {
+      display: block;
+      font-size: 11px;
+      color: #8a93a3;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .price-card.featured .price-per-user-line {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #d9f5e3;
+    }
+
+    .price-card.featured .price-per-user-line strong {
+      color: #fff;
+    }
+
+    /* ---------- "Everything in X" line highlight ---------- */
+    .price-card ul li.feature-inherit {
+      font-weight: 700;
+      color: inherit;
+      /* don't force a color — respects the featured card's own (often dark-background/light-text) styling */
+    }
+
+    /* ---------- AI feature highlight box (matches reference design) ---------- */
+    .price-card .ai-feature-box {
+      position: relative;
+      margin: 18px 0 4px !important;
+      padding: 22px 18px 16px !important;
+      border-radius: 16px;
+      border: 1px solid #e3ead9;
+      background: linear-gradient(135deg, #eaf7ee 0%, #f6f2f4 55%, #fbe7f3 100%);
+      list-style: none !important;
+    }
+
+    .price-card .ai-feature-box::before {
+      content: none !important;
+      /* prevent the outer checklist checkmark bleeding onto the box itself */
+    }
+
+    .price-card .ai-feature-box .ai-badge {
+      position: absolute;
+      top: -14px;
+      right: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      gap: 4px;
+      background: #fff;
+      border: 1px solid #ece7f5;
+      border-radius: 999px;
+      padding: 6px 12px 6px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #0b1220;
+      box-shadow: 0 3px 10px rgba(11, 18, 32, .08);
+    }
+
+    .price-card .ai-feature-box .ai-badge svg {
+      width: 12px;
+      height: 12px;
+      color: #a463e0;
+    }
+
+    .price-card .ai-feature-box ul {
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .price-card .ai-feature-box li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 600;
+      color: #0b1220;
+      padding: 7px 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .price-card .ai-feature-box li::before {
+      content: "✓";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      border-radius: 50%;
+      color: #17a768;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 900;
+      margin-top: 0;
+    }
+
+    .price-card .ai-feature-box li span {
+      flex: 1 1 auto;
+    }
   </style>
+
   <section id="pricing" class="section pricing">
     <div class="container">
-      <div class="section-heading centered reveal">
-        <div class="eyebrow">SIMPLE, TRANSPARENT PRICING</div>
-        <h2>Powerful CRM. <em>Practical Pricing.</em></h2>
-        <p>Everything you need to manage leads—without enterprise-level pricing. Built for small teams and priced for
-          growing businesses.</p>
+
+      <div class="pricing-hero reveal">
+        <div class="pricing-badges">
+          <span class="pricing-badge"><span class="pricing-badge-check"><svg viewBox="0 0 16 16" fill="none">
+                <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span>14-day free trial</span>
+          <span class="pricing-badge"><span class="pricing-badge-check"><svg viewBox="0 0 16 16" fill="none">
+                <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span>Free onboarding</span>
+          <span class="pricing-badge pricing-badge-highlight"><span class="pricing-badge-check"><svg viewBox="0 0 16 16"
+                fill="none">
+                <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span>100% money-back guarantee</span>
+          <span class="pricing-badge"><span class="pricing-badge-check"><svg viewBox="0 0 16 16" fill="none">
+                <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span>Support you can count on</span>
+          <span class="pricing-badge"><span class="pricing-badge-check"><svg viewBox="0 0 16 16" fill="none">
+                <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span>No forced contracts</span>
+        </div>
+        <h2>Powerfull CRM. <em>Simple, Affordable Pricing.</em></h2>
+
       </div>
+
+      <!-- Monthly / Yearly pill toggle -->
+      <div class="billing-toggle-wrap">
+        <div class="billing-pill" role="group" aria-label="Choose billing cycle">
+          <span class="billing-pill-thumb" id="billing-pill-thumb"></span>
+          <button type="button" class="active" data-billing-btn="monthly">Monthly</button>
+          <button type="button" data-billing-btn="yearly">Yearly</button>
+        </div>
+        <div class="billing-callout">
+          <span class="billing-callout-arrow">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M6 30C6 14 18 6 34 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <path d="M28 4l6 4-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span>Go Yearly and<br><strong>SAVE UP TO 20%</strong></span>
+        </div>
+      </div>
+
       <div class="pricing-grid">
         <?php
-        $plans = [['Starter', 'For individuals & small teams', '499', '500 credits*', '2 user seats', '1,000 contacts', '2 CRM pipelines', 'Website lead capture', '5 GB media storage', 'Unlimited third-party call tracking'], ['Growth', 'Built for growing businesses', '999', '2,000 credits*', '5 user seats', '5,000 contacts', '5 CRM pipelines', 'AI summary & AI reply', 'Workflow automation', 'WhatsApp Flow Builder', '10 GB media storage', 'Unlimited third-party call tracking'], ['Pro', 'For high-performance teams', '1,999', '7,500 credits*', '12 user seats', '25,000 contacts', '15 CRM pipelines', 'AI summary & AI reply', 'Advanced workflows & reports', '15 GB media storage', 'Unlimited third-party call tracking'], ['Agency', 'For multi-team operations', '4,999', '25,000 credits*', '30 user seats', '100,000 contacts', '50 CRM pipelines', 'AI summary & AI reply', 'Priority support', '50 GB media storage', 'Unlimited third-party call tracking']];
-        $vf_credits_info_url = 'https://vistaarflow.in/2026/09/18/understanding-vistaarflows-usage-based-credit-pricing-pay-only-for-what-you-actually-use/'; // <-- update to your actual blog/help URL
-        foreach ($plans as $i => $p): ?>
-          <article class="price-card <?php echo $i === 1 ? 'featured' : ''; ?> reveal"><?php if ($i === 1): ?><span
-                class="popular">MOST POPULAR</span><?php endif; ?>
-            <h3><?php echo esc_html($p[0]); ?></h3>
-            <p><?php echo esc_html($p[1]); ?></p>
-            <div class="price"><small>₹</small><strong><?php echo esc_html($p[2]); ?></strong><span>/ month</span></div><a
-              class="button <?php echo $i === 1 ? '' : 'button-outline'; ?>"
-              href="https://app.vistaarflow.in/signup">Choose
-              <?php echo esc_html($p[0]); ?></a>
-            <ul><?php foreach (array_slice($p, 3) as $item): ?>
-                <?php if (preg_match('/credits\*/', $item)): ?>
+        /*
+         * Plan data transcribed directly from "VistaarFlow_Full_Plan_Features.xlsx"
+         * → sheet "Pricing Card Format". Every "regular" feature matches that sheet's
+         * column, in the same order. AI-specific items are pulled out into a separate
+         * `ai_features` array so they render inside the highlighted AI box, matching
+         * the reference design (badge + gradient box + checklist).
+         */
+        $plans = [
+          [
+            'name' => 'Starter',
+            'monthly' => 499,
+            'tagline' => 'For individuals and small teams getting started with CRM.',
+            'user_seats' => 2,
+            'ai_features' => [], // no AI box on Starter
+            'features' => [
+              '2 User Seats',
+              '50,000 Contacts',
+              '500 Credits*',
+              '2 CRM Pipelines',
+              'Deal & Stage Tracking',
+              'Lead Management',
+              'Website Lead Capture',
+              'Whatsapp Lead Capture',
+              'Mail Integration (Send / Receive)',
+              'Microsoft Gmail Integration',
+              'Portal Connectivity (99acres, MagicBricks, Housing.com, Zapier)',
+              'WhatsApp Integration',
+              'Facebook / Meta Lead Integration',
+              'Telephony / Calling Integration',
+              'Bulk Whatsapp Template Sending',
+              'Unlimited Third-Party Call Tracking',
+              '5 GB Media Storage',
+              'Unlimited Automation',
+              'In-App Push Notifications for Fast Connecting',
+              'WhatsApp Flow/Form Builder',
+              'Task Assignment to Users',
+              'Schedule Appointments',
+              'Reporting',
+              'Create & Maintain Catalog',
+              'Email Template Creation & Sending',
+              'Lead Assignment to Users / Automated Lead Assignment',
+            ],
+          ],
+          [
+            'name' => 'Growth',
+            'monthly' => 999,
+            'tagline' => 'For growing businesses that need AI, automation and better communication.',
+            'user_seats' => 5,
+            'ai_features' => [
+              'Record Summary',
+              'AI Reply',
+              'Email Reply Assistant',
+              'AI Suggestions',
+            ],
+            'features' => [
+              'Everything in Starter',
+              '5 User Seats',
+              '1,00,000 Contacts',
+              '2,000 Credits*',
+              '5 CRM Pipelines',
+              'Workflow Automation',
+              'WhatsApp Flow/Form Builder',
+              'Website Lead Capture',
+              'Facebook / Meta Lead Integration',
+              'WhatsApp Integration',
+              'Telephony / Calling Integration',
+              'Unlimited Third-Party Call Tracking',
+              '10 GB Media Storage',
+            ],
+          ],
+          [
+            'name' => 'Pro',
+            'monthly' => 1999,
+            'tagline' => 'For established teams that need advanced automation and higher CRM capacity.',
+            'user_seats' => 12,
+            // 'ai_features'  => [
+            //   'AI Summary',
+            //   'AI Reply',
+            //   '7,500 AI credits/month',
+            // ],
+            'features' => [
+              'Everything in Growth',
+              '12 User Seats',
+              '1Million Contacts',
+              '7,500 Credits*',
+              '15 CRM Pipelines',
+              'Workflow Automation',
+              'Advanced Workflows',
+              'Advanced Reports',
+              'WhatsApp Flow/Form Builder',
+              'Website Lead Capture',
+              'Facebook / Meta Lead Integration',
+              'WhatsApp Integration',
+              'Telephony / Calling Integration',
+              'Unlimited Third-Party Call Tracking',
+              '15 GB Media Storage',
+            ],
+          ],
+          [
+            'name' => 'Agency',
+            'monthly' => 4999,
+            'tagline' => 'For agencies and larger teams managing high lead volumes and multiple pipelines.',
+            'user_seats' => 30,
+            // 'ai_features'  => [
+            //   'AI Summary',
+            //   'AI Reply',
+            //   '25,000 AI credits/month',
+            // ],
+            'features' => [
+              'Everything in Pro',
+              '30 User Seats',
+              '10Million Contacts',
+              '25,000 Credits*',
+              '50 CRM Pipelines',
+              'Workflow Automation',
+              'Advanced Workflows',
+              'Advanced Reports',
+              'WhatsApp Flow/Form Builder',
+              'Website Lead Capture',
+              'Facebook / Meta Lead Integration',
+              'WhatsApp Integration',
+              'Telephony / Calling Integration',
+              'Unlimited Third-Party Call Tracking',
+              'Priority Support',
+              '50 GB Media Storage',
+            ],
+          ],
+        ];
+
+        $vf_credits_info_url = 'https://vistaarflow.in/2026/09/18/understanding-vistaarflows-usage-based-credit-pricing-pay-only-for-what-you-actually-use/';
+        $vf_yearly_discount = 0.20; // 20% off
+        $featured_index = 1;    // "Growth" is highlighted as Most Popular
+        
+        foreach ($plans as $i => $p):
+          $monthly = (int) $p['monthly'];
+          $user_seats = (int) $p['user_seats'];
+
+          // Yearly = monthly price minus the discount, rounded to a clean number
+          $yearly_monthly_equiv = (int) round(($monthly * (1 - $vf_yearly_discount)) / 10) * 10;
+          $yearly_total = $yearly_monthly_equiv * 12;
+
+          // Per-user price = total plan price ÷ number of user seats
+          $per_user_monthly = $user_seats > 0 ? round($monthly / $user_seats) : $monthly;
+          $per_user_yearly = $user_seats > 0 ? round($yearly_monthly_equiv / $user_seats) : $yearly_monthly_equiv;
+          ?>
+          <article class="price-card <?php echo $i === $featured_index ? 'featured' : ''; ?> reveal"
+            data-monthly-price="<?php echo esc_attr($monthly); ?>"
+            data-yearly-monthly="<?php echo esc_attr($yearly_monthly_equiv); ?>"
+            data-yearly-total="<?php echo esc_attr($yearly_total); ?>"
+            data-user-seats="<?php echo esc_attr($user_seats); ?>"
+            data-per-user-monthly="<?php echo esc_attr($per_user_monthly); ?>"
+            data-per-user-yearly="<?php echo esc_attr($per_user_yearly); ?>">
+            <?php if ($i === $featured_index): ?><span class="popular">MOST POPULAR</span><?php endif; ?>
+            <h3><?php echo esc_html($p['name']); ?></h3>
+            <p><?php echo esc_html($p['tagline']); ?></p>
+
+            <div class="price" data-mode="monthly">
+              <small>₹</small><strong
+                class="price-amount"><?php echo esc_html(number_format($monthly)); ?></strong><span>/ month</span>
+            </div>
+            <div class="price-per-user-line">
+              <strong class="price-per-user-amount">₹<?php echo esc_html(number_format($per_user_monthly)); ?></strong> /
+              user / month
+              <span class="price-period-note">Billed monthly · <?php echo esc_html($user_seats); ?> user seats</span>
+            </div>
+
+            <a class="button <?php echo $i === $featured_index ? '' : 'button-outline'; ?>"
+              href="https://app.vistaarflow.in/signup">
+              Choose <?php echo esc_html($p['name']); ?>
+            </a>
+
+            <ul>
+              <?php foreach ($p['features'] as $item): ?>
+                <?php if (preg_match('/Credits\*$/i', $item)): ?>
                   <li>✓ <a class="credits-link" href="<?php echo esc_url($vf_credits_info_url); ?>" target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="<?php echo esc_attr($item . ' — click to learn how credits work'); ?>"><svg
-                        class="credits-info-icon" width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      aria-label="<?php echo esc_attr($item . ' — click to learn how credits work'); ?>">
+                      <svg class="credits-info-icon" width="13" height="13" viewBox="0 0 16 16" fill="none"
+                        aria-hidden="true">
                         <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.3" />
                         <line x1="8" y1="7.2" x2="8" y2="11.3" stroke="currentColor" stroke-width="1.3"
                           stroke-linecap="round" />
                         <circle cx="8" cy="4.9" r="0.9" fill="currentColor" />
-                      </svg><span class="credits-link-text"><?php echo esc_html($item); ?></span></a></li>
+                      </svg><span class="credits-link-text"><?php echo esc_html($item); ?></span>
+                    </a>
+                  </li>
+                <?php elseif (preg_match('/^Everything in /i', $item)): ?>
+                  <li class="feature-inherit">✓ <?php echo esc_html($item); ?></li>
                 <?php else: ?>
                   <li>✓ <?php echo esc_html($item); ?></li>
                 <?php endif; ?>
               <?php endforeach; ?>
+
+              <?php if (!empty($p['ai_features'])): ?>
+                <li class="ai-feature-box">
+                  <span class="ai-badge">AI
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2l1.6 5.6L19 9l-5.4 1.4L12 16l-1.6-5.6L5 9l5.4-1.4L12 2z" />
+                      <path d="M19 14l.8 2.8L22.6 17.6 19.8 18.4 19 21.2 18.2 18.4 15.4 17.6 18.2 16.8 19 14z" />
+                    </svg>
+                  </span>
+                  <ul>
+                    <?php foreach ($p['ai_features'] as $ai_item): ?>
+                      <li><span><?php echo esc_html($ai_item); ?></span></li>
+                    <?php endforeach; ?>
+                  </ul>
+                </li>
+              <?php endif; ?>
             </ul>
-          </article><?php endforeach; ?>
+          </article>
+        <?php endforeach; ?>
       </div>
+
       <p class="pricing-note">All plans include guided onboarding, team training, cloud hosting, automatic backups and
-        regular product updates. Meta WhatsApp conversation charges are billed separately by Meta.</p>
+        regular product updates. Meta WhatsApp conversation charges are billed separately by Meta. Per-user price is the
+        plan price divided by the included user seats. Yearly billing saves 20% versus paying monthly.</p>
     </div>
   </section>
 
+  <script>
+    (function () {
+      var pillThumb = document.getElementById('billing-pill-thumb');
+      var pillBtns = document.querySelectorAll('.billing-pill [data-billing-btn]');
+      var cards = document.querySelectorAll('#pricing .price-card');
+      if (!pillThumb || !pillBtns.length) return;
+
+      function formatNumber(n) {
+        return Number(n).toLocaleString('en-IN');
+      }
+
+      function render(isYearly) {
+        pillThumb.classList.toggle('is-yearly', isYearly);
+        pillBtns.forEach(function (btn) {
+          var isThisYearly = btn.getAttribute('data-billing-btn') === 'yearly';
+          btn.classList.toggle('active', isThisYearly === isYearly);
+        });
+
+        cards.forEach(function (card) {
+          var priceEl = card.querySelector('.price');
+          var amountEl = card.querySelector('.price-amount');
+          var perUserAmtEl = card.querySelector('.price-per-user-amount');
+          var noteEl = card.querySelector('.price-period-note');
+
+          var monthly = card.getAttribute('data-monthly-price');
+          var yearlyMonthly = card.getAttribute('data-yearly-monthly');
+          var yearlyTotal = card.getAttribute('data-yearly-total');
+          var seats = card.getAttribute('data-user-seats');
+          var perUserMonthly = card.getAttribute('data-per-user-monthly');
+          var perUserYearly = card.getAttribute('data-per-user-yearly');
+
+          if (isYearly) {
+            priceEl.setAttribute('data-mode', 'yearly');
+            amountEl.innerHTML = '<span class="price-strike">₹' + formatNumber(monthly) + '</span>' + formatNumber(yearlyMonthly);
+            perUserAmtEl.textContent = '₹' + formatNumber(Math.round(perUserYearly));
+            noteEl.textContent = 'Billed annually (₹' + formatNumber(yearlyTotal) + '/yr) · ' + seats + ' user seats';
+          } else {
+            priceEl.setAttribute('data-mode', 'monthly');
+            amountEl.textContent = formatNumber(monthly);
+            perUserAmtEl.textContent = '₹' + formatNumber(Math.round(perUserMonthly));
+            noteEl.textContent = 'Billed monthly · ' + seats + ' user seats';
+          }
+        });
+      }
+
+      pillBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          render(btn.getAttribute('data-billing-btn') === 'yearly');
+        });
+      });
+
+      render(false); // default: monthly
+    })();
+  </script>
   <section class="section success-support" aria-labelledby="success-support-title">
     <div class="container">
       <div class="success-support-panel reveal">
@@ -816,7 +1613,7 @@
       <div class="contact-visual">
         <div class="contact-form-card">
           <div class="contact-card-icon">✉</div>
-          <h3>Talk to our team</h3>
+          <h3>Talk to our team/ Schedule Demo</h3>
           <p>Fill in your details and we'll get back to you shortly.</p>
           <form class="contact-form" id="vistaarflow-contact-form" method="post"
             action="<?php echo esc_url(admin_url('admin-post.php')); ?>">

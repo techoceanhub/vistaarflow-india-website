@@ -182,6 +182,20 @@ a {
     box-shadow: 0 12px 24px rgba(88, 101, 242, .23);
     transition: .25s
 }
+.button2 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #5e69df, #815ce6);
+    color: #fff !important;
+    padding: 15px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 12px 24px rgba(88, 101, 242, .23);
+    transition: .25s
+}
 
 .button:hover {
     transform: translateY(-2px);
@@ -199,13 +213,16 @@ a {
 }
 
 .hero {
-    min-height: 850px;
-    padding: 100px 0 100px;
+    /* min-height: 850px; */
+    padding: 100px 0 56px;
     position: relative;
     overflow: hidden;
     background: linear-gradient(145deg, #fff 30%, #f3f5ff 100%)
 }
-
+.hero:before,
+.hero-glow {
+    pointer-events: none;
+}
 .hero:before {
     content: '';
     position: absolute;
@@ -2305,12 +2322,12 @@ h2 em {
 
 .trial-strip-badge {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.78rem;
+  background: rgba(245, 240, 240, 0.966);
+  color: black;
+  font-weight: 1400;
+  font-size: 1rem;
   letter-spacing: 0.04em;
-  padding: 0.35rem 0.85rem;
+  padding: 0.45rem 0.95rem;
   border-radius: 999px;
   margin-bottom: 0.6rem;
 }
@@ -2364,7 +2381,7 @@ h2 em {
   left: -75%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(11, 19, 48, 0.18), transparent);
+  background: linear-gradient(120deg, transparent, rgba(14, 26, 71, 0.18), transparent);
   transform: skewX(-20deg);
   animation: trialCtaShimmer 3.5s ease-in-out infinite;
 }

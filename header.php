@@ -35,6 +35,6 @@
           </ul><?php } ?>
       </nav>
       <div class="nav-actions"><a class="text-link" href="https://app.vistaarflow.in/login">Log in</a>
-       <a href="" class="button button-small" href="https://app.vistaarflow.in/signup">Start free</a></div>
+       <a href="https://app.vistaarflow.in/signup" class="button button-small" >Start free</a></div>
     </div>
   </header>
