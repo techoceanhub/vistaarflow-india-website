@@ -5,8 +5,8 @@
     <div class="container hero-grid">
       <div class="hero-copy reveal">
         <div class="eyebrow"><span></span> BUILT FOR GROWING BUSINESSES</div>
-        <h1>One CRM. Built for <em>Growing Businesses.</em></h1>
-        <p>From startups and small businesses to real estate teams, VistaarFlow helps you capture leads, automate
+        <h1>Low cost CRM. Built for <em>Small Businesses and MSMEs.</em></h1>
+        <p>From startups and small businesses to real estate Agents, VistaarFlow helps you capture leads, automate
           follow-ups, manage pipelines, and close more opportunities from one place.</p>
         <div class="hero-actions">
   <a class="button" href="https://app.vistaarflow.in/signup">Start 14 days free-trial <span>→</span></a>
