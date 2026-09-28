@@ -26,12 +26,12 @@
           wp_nav_menu(['theme_location' => 'primary', 'container' => false]);
         } else { ?>
           <ul>
-            <li><a href="<?php echo esc_url(home_url('/#why-us')); ?>">Why VistaarFlow</a></li>
+            <?php echo vistaarflow_features_menu_item(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             <li><a href="<?php echo esc_url(home_url('/#platform')); ?>">Platform</a></li>
             <li><a href="<?php echo esc_url(home_url('/#integrations')); ?>">Integrations</a></li>
-            <li><a href="<?php echo esc_url(home_url('/#pricing')); ?>">Pricing</a></li>
+            <li><a href="<?php echo esc_url(home_url('/pricing')); ?>">Pricing</a></li>
             <li><a href="<?php echo esc_url(vistaarflow_blog_url()); ?>">Blog</a></li>
-            <li><a href="<?php echo esc_url(home_url('/#contact')); ?>">Contact</a></li>
+            <li><a href="<?php echo esc_url(home_url('/contact')); ?>">Contact</a></li>
           </ul><?php } ?>
       </nav>
       <div class="nav-actions"><a class="text-link" href="https://app.vistaarflow.in/login">Log in</a>

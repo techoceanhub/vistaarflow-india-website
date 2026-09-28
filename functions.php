@@ -85,19 +85,43 @@ function vistaarflow_blog_url() {
   return $page_id ? get_permalink($page_id) : home_url('/blog/');
 }
 
-/** Put the Why VistaarFlow item first in an assigned WordPress menu. */
+/** Build one accessible Features dropdown for the header navigation. */
+function vistaarflow_features_menu_item() {
+  $pages = [
+    'WhatsApp CRM' => 'whatsapp-crm',
+    'Facebook CRM' => 'facebook-crm',
+    'AI-powered CRM' => 'ai-powered-crm',
+    'CRM Automation' => 'automation-crm',
+    'Mobile CRM' => 'mobile-crm',
+    'Email CRM' => 'email-crm',
+    'Telephony CRM' => 'telephony-crm',
+    'Website Lead Capture' => 'website-lead-capture',
+    'Lead Assignment' => 'lead-assignment',
+  ];
+  $html = '<li class="menu-item menu-item-features"><div class="features-dropdown"><span class="features-trigger" tabindex="0" aria-haspopup="true">Features <span aria-hidden="true"></span></span><ul class="features-dropdown-menu">';
+  foreach ($pages as $label => $slug) {
+    $html .= '<li><a href="' . esc_url(home_url('/' . $slug . '/')) . '">' . esc_html($label) . '</a></li>';
+  }
+  return $html . '</ul></div></li>';
+}
+
+/** Replace the old Why VistaarFlow item in an assigned WordPress menu. */
 function vistaarflow_prioritize_why_menu_item($items, $args) {
   if (!isset($args->theme_location) || $args->theme_location !== 'primary') return $items;
-  $why = [];
   $rest = [];
   foreach ($items as $item) {
     $label = strtolower(trim(wp_strip_all_tags($item->title)));
-    if (strpos($label, 'why vistaarflow') !== false || strpos($item->url, '#why-us') !== false) $why[] = $item;
-    else $rest[] = $item;
+    if (strpos($label, 'why vistaarflow') === false && strpos($item->url, '#why-us') === false) $rest[] = $item;
   }
-  return array_merge($why, $rest);
+  return $rest;
 }
 add_filter('wp_nav_menu_objects', 'vistaarflow_prioritize_why_menu_item', 10, 2);
+
+function vistaarflow_prepend_features_menu_item($items, $args) {
+  if (!isset($args->theme_location) || $args->theme_location !== 'primary') return $items;
+  return vistaarflow_features_menu_item() . $items;
+}
+add_filter('wp_nav_menu_items', 'vistaarflow_prepend_features_menu_item', 20, 2);
 
 /** Keep legal links present even when the administrator assigns a custom menu. */
 function vistaarflow_append_legal_menu_items($items, $args) {
