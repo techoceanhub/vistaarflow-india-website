@@ -847,7 +847,237 @@
       </div>
     </div>
   </section>
+   <style id="vistaarflow-integrations-bar">
+    .integrations-bar {
+      background: #fff;
+      padding: 34px 0 30px;
+      overflow: hidden;
+    }
 
+    .integrations-bar .container {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .integrations-bar-text {
+      flex: 0 0 auto;
+      max-width: 230px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #0b1220;
+    }
+
+    /* Marquee viewport */
+    .integrations-bar-marquee {
+      position: relative;
+      flex: 1 1 auto;
+      overflow: hidden;
+      columns: black;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+    }
+
+    .integrations-bar-track {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      gap: 56px;
+      animation: integrations-bar-scroll 28s linear infinite;
+    }
+
+    .integrations-bar-marquee:hover .integrations-bar-track {
+      animation-play-state: paused;
+    }
+
+    .integrations-bar-item {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      height: 34px;
+      white-space: nowrap;
+    }
+
+    .integrations-bar-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: #215af8;
+      transition: color .2s ease;
+    }
+
+    .integrations-bar-item span {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #215af8;
+      transition: color .2s ease;
+    }
+
+    .integrations-bar-item:hover svg,
+    .integrations-bar-item:hover span {
+      color: #031649;
+    }
+
+    @keyframes integrations-bar-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        /* moves exactly one full (unduplicated) set width to the left for a seamless loop */
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 780px) {
+      .integrations-bar .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .integrations-bar-text {
+        max-width: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .integrations-bar-track {
+        animation: none;
+      }
+
+      .integrations-bar-marquee {
+        overflow-x: auto;
+      }
+    }
+  </style>
+
+  <section class="integrations-bar">
+    <div class="container">
+      <p class="integrations-bar-text">Integrated with the tools you already use</p>
+
+      <div class="integrations-bar-marquee">
+        <?php
+        /*
+         * One entry per integration. `svg` is a small inline icon (currentColor, so it
+         * inherits the grayscale/hover-color behaviour automatically) — leave it empty
+         * to show just the text label. Duplicated once below for a seamless loop.
+         */
+        $integrations = [
+          [
+            'name' => 'WhatsApp',
+            'svg' => '<path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 3.9 3.5.5.2.9.4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3z" fill="currentColor"/>',
+          ],
+          [
+            'name' => 'Meta',
+            'svg' => '<path d="M14.5 21v-7.6h2.6l.4-3H14.5v-1.9c0-.9.3-1.5 1.6-1.5h1.6V4.3c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.1H8.7v3h2.6V21h3.2z" fill="currentColor"/>',
+          ],
+          [
+            'name' => 'Gmail',
+            'svg' => '<path d="M3 6.5A1.5 1.5 0 014.5 5h15A1.5 1.5 0 0121 6.5v11a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 17.5v-11zm2 .3v.2l7 5.2 7-5.2v-.2l-7 5-7-5z" fill="currentColor"/>',
+          ],
+          [
+            'name' => 'Microsoft',
+            'svg' => '
+        <rect x="3" y="3" width="8" height="8" fill="currentColor"/>
+        <rect x="13" y="3" width="8" height="8" fill="currentColor"/>
+        <rect x="3" y="13" width="8" height="8" fill="currentColor"/>
+        <rect x="13" y="13" width="8" height="8" fill="currentColor"/>
+    ',
+          ],
+          [
+            'name' => 'Plivio',
+            'svg' => '<path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>',
+          ],
+          [
+            'name' => 'Exotel',
+            'svg' => '<path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>',
+          ],
+          // [
+          //   'name' => 'Zapier',
+          //   'svg' => '<path d="M11 2h2v8.6L19.7 5l1.4 1.4-6.5 6.6H23v2h-8.4l6.5 6.6-1.4 1.4-6.7-6.6V22h-2v-8.6L4.3 20 2.9 18.6l6.5-6.6H1v-2h8.4L2.9 5.4 4.3 4l6.7 6.6V2z" fill="currentColor"/>',
+          // ],
+          [
+            'name' => '99acres',
+            'svg' => '<path d="M3 10.5L12 3l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>',
+          ],
+          [
+            'name' => 'MagicBricks',
+            'svg' => '<rect x="4" y="4" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="13" y="4" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="4" y="13" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="13" y="13" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6" fill="none"/>',
+          ],
+          [
+            'name' => 'Housing.com',
+            'svg' => '<path d="M4 11l8-7 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M6 10v9a1 1 0 001 1h10a1 1 0 001-1v-9" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/>',
+          ],
+          [
+            'name' => 'Open Ai',
+            'svg' => '
+        <path d="M12 3a4 4 0 013.5 2 4 4 0 014.5 4 4 4 0 01-.5 6
+        4 4 0 01-3.5 5 4 4 0 01-6.5 1 4 4 0 01-5-4
+        4 4 0 01.5-6 4 4 0 013.5-5A4 4 0 0112 3z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+        <path d="M9 8l6 3.5v7M15 8l-6 3.5v7M6 11.5l6 3.5 6-3.5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+    ',
+          ],
+
+          [
+            'name' => 'Gemini',
+            'svg' => '
+        <path d="M12 2
+        C12.7 7.3 16.7 11.3 22 12
+        C16.7 12.7 12.7 16.7 12 22
+        C11.3 16.7 7.3 12.7 2 12
+        C7.3 11.3 11.3 7.3 12 2Z"
+        fill="currentColor"/>
+    ',
+          ],
+
+          [
+            'name' => 'Claude',
+            'svg' => '
+        <path d="M12 3v18M3 12h18
+        M5.6 5.6l12.8 12.8
+        M18.4 5.6L5.6 18.4
+        M8.5 3.8l7 16.4
+        M15.5 3.8l-7 16.4
+        M3.8 8.5l16.4 7
+        M3.8 15.5l16.4-7"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        stroke-linecap="round"/>
+    ',
+          ],
+        ];
+
+        // Duplicate the list once so the marquee can loop seamlessly (translateX(-50%)).
+        $integrations_loop = array_merge($integrations, $integrations);
+        ?>
+        <div class="integrations-bar-track">
+          <?php foreach ($integrations_loop as $item): ?>
+            <div class="integrations-bar-item">
+              <?php if (!empty($item['svg'])): ?>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><?php echo $item['svg']; ?></svg>
+              <?php endif; ?>
+              <span><?php echo esc_html($item['name']); ?></span>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
+  </section>
  <section id="vf-wa-wa-features" class="vf-wa-wa-section"> 
   <div class="container"> 
 

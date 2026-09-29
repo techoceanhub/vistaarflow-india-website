@@ -622,24 +622,24 @@
           <span class="pricing-badge"><span class="pricing-badge-check"><svg viewBox="0 0 16 16" fill="none">
                 <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                   stroke-linejoin="round" />
-              </svg></span>14-day free trial</span>
+              </svg></span>Free 14-day trial</span>
           <span class="pricing-badge"><span class="pricing-badge-check"><svg viewBox="0 0 16 16" fill="none">
                 <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                   stroke-linejoin="round" />
-              </svg></span>Free onboarding</span>
+              </svg></span>Complimentary onboarding</span>
           <span class="pricing-badge pricing-badge-highlight"><span class="pricing-badge-check"><svg viewBox="0 0 16 16"
                 fill="none">
                 <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                   stroke-linejoin="round" />
-              </svg></span>100% money-back guarantee</span>
+              </svg></span>Full refund guarantee</span>
           <span class="pricing-badge"><span class="pricing-badge-check"><svg viewBox="0 0 16 16" fill="none">
                 <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                   stroke-linejoin="round" />
-              </svg></span>Support you can count on</span>
+              </svg></span>Dedicated support team</span>
           <span class="pricing-badge"><span class="pricing-badge-check"><svg viewBox="0 0 16 16" fill="none">
                 <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                   stroke-linejoin="round" />
-              </svg></span>No forced contracts</span>
+              </svg></span>No long-term commitment</span>
         </div>
         <h2>Powerfull CRM. <em>Simple, Affordable Pricing.</em></h2>
 
@@ -879,9 +879,9 @@
         <?php endforeach; ?>
       </div>
 
-      <p class="pricing-note">All plans include guided onboarding, team training, cloud hosting, automatic backups and
+      <!-- <p class="pricing-note">All plans include guided onboarding, team training, cloud hosting, automatic backups and
         regular product updates. Meta WhatsApp conversation charges are billed separately by Meta. Per-user price is the
-        plan price divided by the included user seats. Yearly billing saves 20% versus paying monthly.</p>
+        plan price divided by the included user seats. Yearly billing saves 20% versus paying monthly.</p> -->
     </div>
   </section>
 
@@ -1353,7 +1353,7 @@
 
 
             <!-- FAQ 7 -->
-            <article class="vf-faq-item">
+            <!-- <article class="vf-faq-item">
 
                 <button
                     class="vf-faq-question"
@@ -1376,7 +1376,7 @@
                     </div>
                 </div>
 
-            </article>
+            </article> -->
 
 
             <!-- FAQ 8 -->
