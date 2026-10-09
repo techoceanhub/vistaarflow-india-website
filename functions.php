@@ -177,3 +177,122 @@ function vistaarflow_whatsapp_url() {
   $message = get_theme_mod('vistaarflow_whatsapp_message', __('Hi VistaarFlow, I would like to learn more about your CRM.','vistaarflow'));
   return 'https://api.whatsapp.com/send?' . ($number ? 'phone=' . rawurlencode($number) . '&' : '') . 'text=' . rawurlencode($message);
 }
+
+
+function vistaarflow_register_lead_post_type() {
+  register_post_type('vf_lead', [
+    'labels' => [
+      'name' => __('VistaarFlow Leads', 'vistaarflow'),
+      'singular_name' => __('VistaarFlow Lead', 'vistaarflow'),
+      'menu_name' => __('VistaarFlow Leads', 'vistaarflow'),
+      'all_items' => __('All Leads', 'vistaarflow'),
+      'view_item' => __('View Lead', 'vistaarflow'),
+      'search_items' => __('Search Leads', 'vistaarflow'),
+      'not_found' => __('No leads found', 'vistaarflow'),
+    ],
+    'public' => false,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_rest' => false,
+    'menu_icon' => 'dashicons-businessperson',
+    'supports' => ['title'],
+  ]);
+}
+add_action('init', 'vistaarflow_register_lead_post_type');
+
+function vistaarflow_contact_response($success, $message) {
+  if (!empty($_POST['vf_ajax']) || wp_doing_ajax()) {
+    if ($success) wp_send_json_success(['message' => $message]);
+    wp_send_json_error(['message' => $message], 400);
+  }
+  $status = $success ? 'success' : 'error';
+  wp_safe_redirect(add_query_arg('contact_status', $status, home_url('/contact/')));
+  exit;
+}
+
+function vistaarflow_handle_contact_submission() {
+  if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    vistaarflow_contact_response(false, __('Invalid request.', 'vistaarflow'));
+  }
+
+  $nonce = isset($_POST['vistaarflow_contact_nonce_field'])
+    ? sanitize_text_field(wp_unslash($_POST['vistaarflow_contact_nonce_field']))
+    : '';
+  if (!$nonce || !wp_verify_nonce($nonce, 'vistaarflow_contact_nonce')) {
+    vistaarflow_contact_response(false, __('The form expired. Please refresh the page and try again.', 'vistaarflow'));
+  }
+
+  if (!empty($_POST['vf_company'])) {
+    vistaarflow_contact_response(true, __('Your enquiry has been received.', 'vistaarflow'));
+  }
+
+  $name = isset($_POST['vf_name']) ? sanitize_text_field(wp_unslash($_POST['vf_name'])) : '';
+  $phone = isset($_POST['vf_phone']) ? preg_replace('/\D+/', '', wp_unslash($_POST['vf_phone'])) : '';
+  $email = isset($_POST['vf_email']) ? sanitize_email(wp_unslash($_POST['vf_email'])) : '';
+
+  if ($name === '' || !preg_match('/^[0-9]{10}$/', $phone) || !is_email($email)) {
+    vistaarflow_contact_response(false, __('Please enter a valid name, 10-digit phone number, and email address.', 'vistaarflow'));
+  }
+
+  $lead_id = wp_insert_post([
+    'post_type' => 'vf_lead',
+    'post_status' => 'publish',
+    'post_title' => sprintf('%s - %s', $name, current_time('Y-m-d H:i')),
+  ], true);
+  if (is_wp_error($lead_id)) {
+    vistaarflow_contact_response(false, __('We could not save your enquiry. Please try again.', 'vistaarflow'));
+  }
+
+  update_post_meta($lead_id, '_vf_name', $name);
+  update_post_meta($lead_id, '_vf_phone', $phone);
+  update_post_meta($lead_id, '_vf_email', $email);
+  update_post_meta($lead_id, '_vf_source', 'Website Contact Page');
+  update_post_meta($lead_id, '_vf_submitted_at', current_time('mysql'));
+
+  wp_mail(
+    'contact@vistaarflow.in',
+    sprintf(__('New VistaarFlow website enquiry from %s', 'vistaarflow'), $name),
+    "Name: {$name}\nPhone: {$phone}\nEmail: {$email}\nSource: Website Contact Page",
+    ['Reply-To: ' . $name . ' <' . $email . '>']
+  );
+
+  vistaarflow_contact_response(true, __('Your enquiry has been sent successfully. Our team will reach out shortly.', 'vistaarflow'));
+}
+add_action('admin_post_nopriv_vistaarflow_contact_submit', 'vistaarflow_handle_contact_submission');
+add_action('admin_post_vistaarflow_contact_submit', 'vistaarflow_handle_contact_submission');
+
+function vistaarflow_lead_columns($columns) {
+  return [
+    'cb' => $columns['cb'],
+    'title' => __('Lead', 'vistaarflow'),
+    'vf_phone' => __('Phone', 'vistaarflow'),
+    'vf_email' => __('Email', 'vistaarflow'),
+    'vf_source' => __('Source', 'vistaarflow'),
+    'date' => __('Received', 'vistaarflow'),
+  ];
+}
+add_filter('manage_vf_lead_posts_columns', 'vistaarflow_lead_columns');
+
+function vistaarflow_lead_column_value($column, $post_id) {
+  $keys = ['vf_phone' => '_vf_phone', 'vf_email' => '_vf_email', 'vf_source' => '_vf_source'];
+  if (isset($keys[$column])) echo esc_html(get_post_meta($post_id, $keys[$column], true));
+}
+add_action('manage_vf_lead_posts_custom_column', 'vistaarflow_lead_column_value', 10, 2);
+
+function vistaarflow_lead_details_box() {
+  add_meta_box('vf-lead-details', __('Lead details', 'vistaarflow'), function ($post) {
+    $fields = [
+      __('Name', 'vistaarflow') => '_vf_name',
+      __('Phone', 'vistaarflow') => '_vf_phone',
+      __('Email', 'vistaarflow') => '_vf_email',
+      __('Source', 'vistaarflow') => '_vf_source',
+      __('Submitted', 'vistaarflow') => '_vf_submitted_at',
+    ];
+    echo '<table class="widefat striped"><tbody>';
+    foreach ($fields as $label => $key) {
+      echo '<tr><th style="width:140px">' . esc_html($label) . '</th><td>' . esc_html(get_post_meta($post->ID, $key, true)) . '</td></tr>';
+    }
+    echo '</tbody></table>';
+  }, 'vf_lead', 'normal', 'high');
+}
+add_action('add_meta_boxes_vf_lead', 'vistaarflow_lead_details_box');

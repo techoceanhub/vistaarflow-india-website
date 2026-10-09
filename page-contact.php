@@ -512,13 +512,21 @@ get_header();
           <h3>Talk to our team/ Schedule Demo</h3>
           <p>Fill in your details and we'll get back to you shortly.</p>
 
-          <!-- Success / error message shown after the form is submitted -->
-          <div id="vf-form-message" class="vf-form-message" role="alert" aria-live="polite" hidden></div>
+          <!-- Success / error message shown after WordPress processes the form. -->
+          <?php $vf_contact_status = isset($_GET['contact_status']) ? sanitize_key(wp_unslash($_GET['contact_status'])) : ''; ?>
+          <div id="vf-form-message" class="vf-form-message <?php echo $vf_contact_status === 'success' ? 'vf-form-message-success' : 'vf-form-message-error'; ?>" role="alert" aria-live="polite" <?php echo $vf_contact_status ? '' : 'hidden'; ?>><?php
+            if ($vf_contact_status === 'success') {
+              echo esc_html__('✓ Your enquiry has been sent successfully. Our team will reach out shortly.', 'vistaarflow');
+            } elseif ($vf_contact_status) {
+              echo esc_html__('We could not submit your enquiry. Please check your details and try again.', 'vistaarflow');
+            }
+          ?></div>
 
           <form class="contact-form" id="vistaarflow-contact-form" method="post"
             action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
             <input type="hidden" name="action" value="vistaarflow_contact_submit">
             <?php wp_nonce_field('vistaarflow_contact_nonce', 'vistaarflow_contact_nonce_field'); ?>
+            <div class="vf-honeypot" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label for="vf-company">Company website</label><input type="text" id="vf-company" name="vf_company" tabindex="-1" autocomplete="off"></div>
             <div class="contact-form-field">
               <label for="vf-name">Full name</label>
               <input type="text" id="vf-name" name="vf_name" placeholder="Your full name" required>
