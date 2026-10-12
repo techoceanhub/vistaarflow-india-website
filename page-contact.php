@@ -488,163 +488,198 @@ get_header();
 ================================ -->
 
 <section id="contact" class="section contact-section" aria-labelledby="contact-title">
-    <div class="container contact-layout reveal">
-      <div class="contact-copy">
-        <div class="eyebrow">GET IN TOUCH</div>
-        <h2 id="contact-title">Questions? <em>We're here to help.</em></h2>
-        <p>Whether you're evaluating VistaarFlow, need help with onboarding, or have a question about your account, our
+<div class="container contact-layout reveal">
+<div class="contact-copy">
+<div class="eyebrow">GET IN TOUCH</div>
+<h2 id="contact-title">Questions? <em>We're here to help.</em></h2>
+<p>Whether you're evaluating VistaarFlow, need help with onboarding, or have a question about your account, our
           team is ready to assist. Reach out and we'll get back to you promptly.</p>
-        <div class="contact-methods">
-          <div class="contact-method">
-            <span class="contact-icon" aria-hidden="true">✉</span>
-            <div>
-              <strong>Email us</strong>
-              <a href="mailto:contact@vistaarflow.in">contact@vistaarflow.in</a>
-              <small>We typically respond within 24 Hours.</small>
-            </div>
-          </div>
-        </div>
-        <a class="button button-dark" href="mailto:contact@vistaarflow.in">Email contact@vistaarflow.in →</a>
-      </div>
-      <div class="contact-visual">
-        <div class="contact-form-card">
-          <div class="contact-card-icon">✉</div>
-          <h3>Talk to our team/ Schedule Demo</h3>
-          <p>Fill in your details and we'll get back to you shortly.</p>
+<div class="contact-methods">
+<div class="contact-method">
+<span class="contact-icon" aria-hidden="true">✉</span>
+<div>
+<strong>Email us</strong>
+<a href="mailto:contact@vistaarflow.in">contact@vistaarflow.in</a>
+<small>We typically respond within 24 Hours.</small>
+</div>
+</div>
+</div>
+<a class="button button-dark" href="mailto:contact@vistaarflow.in">Email contact@vistaarflow.in →</a>
+</div>
+<div class="contact-visual">
+<div class="contact-form-card">
+<div class="contact-card-icon">✉</div>
+<h3>Talk to our team/ Schedule Demo</h3>
+<p>Fill in your details and we'll get back to you shortly.</p>
 
-          <!-- Success / error message shown after WordPress processes the form. -->
-          <?php $vf_contact_status = isset($_GET['contact_status']) ? sanitize_key(wp_unslash($_GET['contact_status'])) : ''; ?>
-          <div id="vf-form-message" class="vf-form-message <?php echo $vf_contact_status === 'success' ? 'vf-form-message-success' : 'vf-form-message-error'; ?>" role="alert" aria-live="polite" <?php echo $vf_contact_status ? '' : 'hidden'; ?>><?php
-            if ($vf_contact_status === 'success') {
-              echo esc_html__('✓ Your enquiry has been sent successfully. Our team will reach out shortly.', 'vistaarflow');
-            } elseif ($vf_contact_status) {
-              echo esc_html__('We could not submit your enquiry. Please check your details and try again.', 'vistaarflow');
-            }
-          ?></div>
+<?php $vf_contact_status = isset($_GET['contact_status']) ? sanitize_key(wp_unslash($_GET['contact_status'])) : ''; ?>
+<div id="vf-form-message" class="vf-form-message <?php echo $vf_contact_status === 'success' ? 'vf-form-message-success' : 'vf-form-message-error'; ?>" role="alert" aria-live="polite" <?php echo $vf_contact_status ? '' : 'hidden'; ?>><?php
+  if ($vf_contact_status === 'success') {
+    echo esc_html__('✓ Your enquiry has been sent successfully. Our team will reach out shortly.', 'vistaarflow');
+  } elseif ($vf_contact_status) {
+    echo esc_html__('We could not submit your enquiry. Please check your details and try again.', 'vistaarflow');
+  }
+?></div>
 
-          <form class="contact-form" id="vistaarflow-contact-form" method="post"
-            action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
-            <input type="hidden" name="action" value="vistaarflow_contact_submit">
-            <?php wp_nonce_field('vistaarflow_contact_nonce', 'vistaarflow_contact_nonce_field'); ?>
-            <div class="vf-honeypot" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label for="vf-company">Company website</label><input type="text" id="vf-company" name="vf_company" tabindex="-1" autocomplete="off"></div>
-            <div class="contact-form-field">
-              <label for="vf-name">Full name</label>
-              <input type="text" id="vf-name" name="vf_name" placeholder="Your full name" required>
-            </div>
-            <div class="contact-form-field">
-              <label for="vf-phone">Phone number</label>
-              <input type="tel" id="vf-phone" name="vf_phone" placeholder="98765 43210"
-                inputmode="numeric" pattern="[0-9]{10}"
-                title="Enter a valid 10-digit phone number" required>
-              <small class="contact-field-error" id="vf-phone-error" hidden>Please enter a valid 10-digit phone number.</small>
-            </div>
-            <div class="contact-form-field">
-              <label for="vf-email">Email address</label>
-              <input type="email" id="vf-email" name="vf_email" placeholder="you@company.com" required>
-            </div>
-            <!-- <div class="contact-form-field">
-              <label for="vf-message">Message <span>(optional)</span></label>
-              <textarea id="vf-message" name="vf_message" rows="3" placeholder="How can we help?"></textarea>
-            </div> -->
-            <button type="submit" class="button contact-form-submit">Enquiry Now →</button>
-            <p class="contact-form-note">By submitting, you agree to be contacted about VistaarFlow.</p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
+<form class="contact-form" id="vistaarflow-contact-form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+<input type="hidden" name="action" value="vistaarflow_contact_submit">
+<input type="hidden" name="vf_token" id="vf-token" value="">
 
-  <script>
-    (function () {
-      var form = document.getElementById('vistaarflow-contact-form');
-      var msgBox = document.getElementById('vf-form-message');
-      var phoneInput = document.getElementById('vf-phone');
-      var phoneError = document.getElementById('vf-phone-error');
+<!-- Honeypot: name/label chosen so browser autofill ignores it -->
+<div class="vf-honeypot" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
+<label for="vf-hp">Leave this field empty</label>
+<input type="text" id="vf-hp" name="vf_hp_check" tabindex="-1" autocomplete="new-password">
+</div>
 
-      if (!form) return;
+<div class="contact-form-field">
+<label for="vf-name">Full name</label>
+<input type="text" id="vf-name" name="vf_name" placeholder="Your full name" autocomplete="name" required>
+</div>
+<div class="contact-form-field">
+<label for="vf-phone">Phone number</label>
+<input type="tel" id="vf-phone" name="vf_phone" placeholder="98765 43210"
+       inputmode="numeric" autocomplete="tel-national"
+       title="Enter a valid 10-digit phone number" required>
+<small class="contact-field-error" id="vf-phone-error" hidden>Please enter a valid 10-digit phone number.</small>
+</div>
+<div class="contact-form-field">
+<label for="vf-email">Email address</label>
+<input type="email" id="vf-email" name="vf_email" placeholder="you@company.com" autocomplete="email" required>
+</div>
+<button type="submit" class="button contact-form-submit">Enquiry Now →</button>
+<p class="contact-form-note">By submitting, you agree to be contacted about VistaarFlow.</p>
+</form>
+</div>
+</div>
+</div>
+</section>
 
-      /* ---------- Phone field: digits only, max 10, live error on overflow ---------- */
-      if (phoneInput) {
-        phoneInput.addEventListener('input', function () {
-          var rawDigits = phoneInput.value.replace(/\D/g, '');
-          var digitsOnly = rawDigits.slice(0, 10);
-          phoneInput.value = digitsOnly;
+<script>
+(function () {
+  var form = document.getElementById('vistaarflow-contact-form');
+  var msgBox = document.getElementById('vf-form-message');
+  var phoneInput = document.getElementById('vf-phone');
+  var phoneError = document.getElementById('vf-phone-error');
+  var tokenInput = document.getElementById('vf-token');
 
-          if (phoneError) {
-            // Show the error the moment they try to type an 11th+ digit
-            phoneError.hidden = rawDigits.length <= 10;
-          }
-        });
+  if (!form) return;
 
-        phoneInput.addEventListener('paste', function (e) {
-          e.preventDefault();
-          var pasted = (e.clipboardData || window.clipboardData).getData('text');
-          var rawDigits = pasted.replace(/\D/g, '');
-          var digitsOnly = rawDigits.slice(0, 10);
-          phoneInput.value = digitsOnly;
+  /* ---------- Unique token per submission attempt (prevents duplicate leads) ---------- */
+  function newToken() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'vf-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+  }
+  if (tokenInput) tokenInput.value = newToken();
 
-          if (phoneError) {
-            phoneError.hidden = rawDigits.length <= 10;
-          }
-        });
+  /* ---------- Phone: strip +91 / 91 / leading 0, digits only, max 10 ---------- */
+  function normalizePhone(value) {
+    var digits = String(value).replace(/\D/g, '');
+    if (digits.length === 12 && digits.indexOf('91') === 0) digits = digits.slice(2);
+    else if (digits.length === 11 && digits.charAt(0) === '0') digits = digits.slice(1);
+    return digits;
+  }
 
-        // Hide the error once it's fixed or the field loses focus with a valid value
-        phoneInput.addEventListener('blur', function () {
-          if (phoneError && phoneInput.value.length === 10) {
-            phoneError.hidden = true;
-          }
-        });
+  function applyPhone(value) {
+    var normalized = normalizePhone(value);
+    phoneInput.value = normalized.slice(0, 10);
+    if (phoneError) phoneError.hidden = normalized.length <= 10;
+  }
+
+  if (phoneInput) {
+    phoneInput.addEventListener('input', function () { applyPhone(phoneInput.value); });
+
+    phoneInput.addEventListener('paste', function (e) {
+      e.preventDefault();
+      var pasted = (e.clipboardData || window.clipboardData).getData('text');
+      applyPhone(pasted);
+    });
+
+    phoneInput.addEventListener('blur', function () {
+      if (phoneError && phoneInput.value.length === 10) phoneError.hidden = true;
+    });
+  }
+
+  /* ---------- Message helper ---------- */
+  function showMessage(text, type) {
+    if (!msgBox) return;
+    msgBox.textContent = text;
+    msgBox.hidden = false;
+    msgBox.className = 'vf-form-message vf-form-message-' + type;
+  }
+
+  /* Fallback: normal POST. The same vf_token means the server will not
+     create a duplicate if the AJAX request had already reached it. */
+  function standardWordPressSubmit() {
+    HTMLFormElement.prototype.submit.call(form);
+  }
+
+  /* ---------- AJAX submit ---------- */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    if (phoneInput && !/^[0-9]{10}$/.test(phoneInput.value)) {
+      if (phoneError) phoneError.hidden = false;
+      phoneInput.focus();
+      return;
+    }
+
+    var submitBtn = form.querySelector('.contact-form-submit');
+    var originalLabel = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+    }
+    if (msgBox) msgBox.hidden = true;
+
+    function restoreButton() {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
       }
+    }
 
-      /* ---------- Submit message helper ---------- */
-      function showMessage(text, type) {
-        if (!msgBox) return;
-        msgBox.textContent = text;
-        msgBox.hidden = false;
-        msgBox.className = 'vf-form-message vf-form-message-' + type;
-      }
+    var formData = new FormData(form);
+    formData.append('vf_ajax', '1');
 
-      /* ---------- AJAX submit ---------- */
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
+    // getAttribute because the input named "action" shadows form.action
+    fetch(form.getAttribute('action'), {
+      method: 'POST',
+      body: formData,
+      credentials: 'same-origin',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    }).then(function (response) {
+      var contentType = response.headers.get('content-type') || '';
 
-        // Validate phone before sending
-        if (phoneInput && !/^[0-9]{10}$/.test(phoneInput.value)) {
-          if (phoneError) phoneError.hidden = false;
-          phoneInput.focus();
-          return;
-        }
-
-        var submitBtn = form.querySelector('.contact-form-submit');
-        var originalLabel = submitBtn ? submitBtn.textContent : '';
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Sending…';
-        }
-        if (msgBox) msgBox.hidden = true;
-
-        var formData = new FormData(form);
-        formData.append('vf_ajax', '1');
-
-        fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      if (contentType.indexOf('application/json') !== -1) {
+        return response.json().then(function (data) {
+          return { ok: response.ok && !!data && data.success !== false, message: data && data.data && data.data.message };
         }).catch(function () {
-          // Ignore network-level errors — the enquiry still shows as sent
-          // to the user; any real failure should be checked in server logs.
+          return { ok: false };
         });
+      }
 
+      var status = '';
+      try { status = new URL(response.url).searchParams.get('contact_status') || ''; } catch (err) {}
+      return { ok: response.ok && status === 'success' };
+    }).then(function (result) {
+      if (result.ok) {
         showMessage('✓ Your enquiry has been sent successfully. Our team will reach out shortly.', 'success');
         form.reset();
+        if (tokenInput) tokenInput.value = newToken(); // fresh token for the next enquiry
+      } else {
+        showMessage(result.message || 'We could not submit your enquiry. Please check your details and try again.', 'error');
+      }
+      restoreButton();
+    }).catch(function () {
+      standardWordPressSubmit();
+    });
+  });
+})();
+</script>
 
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalLabel;
-        }
-      });
-    })();
-  </script>
+</main>
+
+<?php get_footer(); ?>
 
 </main>
 
