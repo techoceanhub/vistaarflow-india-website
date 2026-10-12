@@ -298,1582 +298,11 @@
   <!-- <section class="offer-banner">
     <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/offerbanner.png'); ?>" alt="">
   </section> -->
-<!-- ============================================================
-     PASTE THIS in front-page.php, directly ABOVE:
-        <section class="audience-section" aria-labelledby="audience-title">
-     ============================================================ -->
-
-<style id="vistaarflow-pipeline-showcase">
-  .pipeline-showcase {
-    position: relative;
-    background: linear-gradient(180deg, #f5f8ff 0%, #ffffff 100%);
-    padding: 88px 0;
-    overflow: hidden;
-  }
-
-  .pipeline-showcase-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: center;
-    gap: 56px;
-  }
-
-  .pipeline-showcase-copy h2 {
-    margin: 14px 0 18px;
-  }
-
-  .pipeline-showcase-copy>p {
-    color: #475069;
-    font-size: 17px;
-    line-height: 1.7;
-    margin: 0 0 22px;
-    max-width: 62ch;
-  }
-
-  .pipeline-showcase-points {
-    list-style: none;
-    margin: 0 0 30px;
-    padding: 0;
-    display: grid;
-    gap: 16px;
-  }
-
-  .pipeline-showcase-points li {
-    display: grid;
-    grid-template-columns: 26px 1fr;
-    gap: 12px;
-    align-items: start;
-  }
-
-  .pipeline-showcase-points i {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #e4ecff;
-    color: #215af8;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 13px;
-    display: grid;
-    place-items: center;
-    margin-top: 2px;
-  }
-
-  .pipeline-showcase-points h3 {
-    font-size: 16px;
-    line-height: 1.35;
-    margin: 0 0 3px;
-    color: #0b1220;
-  }
-
-  .pipeline-showcase-points p {
-    font-size: 14.5px;
-    line-height: 1.6;
-    color: #5b657d;
-    margin: 0;
-  }
-
-  .pipeline-showcase-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 22px;
-  }
-
-  /* Browser-style frame around the screenshot */
-  .pipeline-showcase-figure {
-    margin: 0;
-    position: relative;
-  }
-
-  .pipeline-showcase-frame {
-    background: #fff;
-    border: 1px solid #dbe3f5;
-    border-radius: 16px;
-    box-shadow: 0 30px 70px -28px rgba(3, 22, 73, .35);
-    overflow: hidden;
-  }
-
-  .pipeline-showcase-bar {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 11px 14px;
-    background: #f1f4fb;
-    border-bottom: 1px solid #dbe3f5;
-  }
-
-  .pipeline-showcase-bar span {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #cfd7ea;
-  }
-
-  .pipeline-showcase-bar small {
-    margin-left: 10px;
-    font-size: 12px;
-    color: #6b7590;
-  }
-
-  .pipeline-showcase-frame img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .pipeline-showcase-figure figcaption {
-    margin-top: 14px;
-    font-size: 13.5px;
-    color: #6b7590;
-    text-align: center;
-  }
-
-  @media (max-width: 980px) {
-    .pipeline-showcase {
-      padding: 64px 0;
-    }
-
-    .pipeline-showcase-layout {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-  }
-</style>
 
 <!-- ============================================================
-     PASTE THIS in front-page.php, directly ABOVE:
-        <section class="audience-section" aria-labelledby="audience-title">
-
-     IMAGE: upload pipeline-dashboard-clean.webp to
-        /assets/images/pipeline-dashboard-clean.webp
-     (this version has the "Get in Touch" box removed - the box
-      is rebuilt below in HTML/CSS so it can be animated)
-     ============================================================ -->
-
-<style id="vistaarflow-pipeline-showcase">
-  .pps {
-    position: relative;
-    background: linear-gradient(180deg, #f5f8ff 0%, #ffffff 100%);
-    padding: 88px 0 80px;
-    overflow: hidden;
-  }
-
-  .pps-head {
-    text-align: center;
-    max-width: 780px;
-    margin: 0 auto 44px;
-  }
-
-  .pps-head h2 {
-    margin: 14px 0 16px;
-  }
-
-  .pps-head p {
-    color: #475069;
-    font-size: 17px;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  /* ---------- Image stage ---------- */
-  .pps-figure {
-    margin: 0 auto;
-    max-width: 1180px;
-  }
-
-  .pps-stage {
-    position: relative;
-    container-type: inline-size;
-  }
-
-  .pps-stage>img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 22px;
-    box-shadow: 0 34px 70px -30px rgba(3, 22, 73, .38);
-  }
-
-  .pps-figure figcaption {
-    margin-top: 16px;
-    text-align: center;
-    font-size: 13.5px;
-    color: #6b7590;
-  }
-
-  /* ---------- Animated "Get in Touch" card ----------
-     Everything is sized from --u (1 unit = 1px of the 1672px-wide image),
-     so the card scales together with the screenshot. */
-  .pps-contact {
-    --u: calc(100cqw / 1672);
-    position: absolute;
-    left: 81.7%;
-    top: 27.8%;
-    width: 17.7%;
-    box-sizing: border-box;
-    padding: calc(var(--u) * 26) calc(var(--u) * 26) calc(var(--u) * 28);
-    border-radius: calc(var(--u) * 30);
-    background: linear-gradient(160deg, rgba(255, 255, 255, .97), rgba(240, 245, 255, .95));
-    border: 1px solid rgba(255, 255, 255, .9);
-    box-shadow: 0 calc(var(--u) * 30) calc(var(--u) * 60) calc(var(--u) * -18) rgba(3, 22, 73, .35);
-    animation: pps-float 7s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  .pps-contact[hidden] {
-    display: none;
-  }
-
-  .pps-close {
-    position: absolute;
-    top: calc(var(--u) * 14);
-    right: calc(var(--u) * 14);
-    width: calc(var(--u) * 30);
-    height: calc(var(--u) * 30);
-    border: 0;
-    border-radius: 50%;
-    background: #fff;
-    color: #0b1220;
-    font-size: calc(var(--u) * 20);
-    line-height: 1;
-    display: grid;
-    place-items: center;
-    padding: 0;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(3, 22, 73, .18);
-  }
-
-  .pps-plane {
-    position: absolute;
-    top: calc(var(--u) * 52);
-    right: calc(var(--u) * 26);
-    width: calc(var(--u) * 92);
-    height: calc(var(--u) * 92);
-    overflow: visible;
-    pointer-events: none;
-  }
-
-  .pps-plane .pps-plane-icon {
-    animation: pps-fly 4.2s ease-in-out infinite;
-    transform-origin: center;
-    transform-box: fill-box;
-  }
-
-  .pps-plane .pps-trail {
-    stroke-dasharray: 4 6;
-    animation: pps-dash 1.6s linear infinite;
-  }
-
-  .pps-contact-title {
-    margin: calc(var(--u) * 62) 0 calc(var(--u) * 8);
-    font-size: calc(var(--u) * 33);
-    line-height: 1.1;
-    font-weight: 800;
-    letter-spacing: -.02em;
-    color: #0b1220;
-  }
-
-  .pps-contact-sub {
-    margin: 0 0 calc(var(--u) * 26);
-    max-width: 82%;
-    font-size: calc(var(--u) * 19);
-    line-height: 1.35;
-    color: #4d5875;
-  }
-
-  .pps-row {
-    position: relative;
-    display: grid;
-    grid-template-columns: calc(var(--u) * 52) 1fr auto;
-    align-items: center;
-    gap: calc(var(--u) * 14);
-    padding: calc(var(--u) * 13) calc(var(--u) * 16);
-    margin-top: calc(var(--u) * 14);
-    border-radius: calc(var(--u) * 16);
-    text-decoration: none;
-    color: #0b1220;
-    opacity: 0;
-    animation: pps-in .7s cubic-bezier(.2, .8, .2, 1) forwards;
-    transition: transform .25s ease, box-shadow .25s ease;
-  }
-
-  .pps-row:hover {
-    transform: translateX(calc(var(--u) * -4));
-    box-shadow: 0 8px 20px -10px rgba(3, 22, 73, .35);
-  }
-
-  .pps-row:focus-visible,
-  .pps-close:focus-visible {
-    outline: 2px solid #215af8;
-    outline-offset: 2px;
-  }
-
-  .pps-row-call {
-    background: rgba(16, 185, 129, .13);
-    animation-delay: .15s;
-    --c: #12a15b;
-  }
-
-  .pps-row-mail {
-    background: rgba(33, 90, 248, .11);
-    animation-delay: .3s;
-    --c: #1f6bff;
-  }
-
-  .pps-row-chat {
-    background: rgba(124, 58, 237, .11);
-    animation-delay: .45s;
-    --c: #7c3aed;
-  }
-
-  .pps-ico {
-    position: relative;
-    width: calc(var(--u) * 52);
-    height: calc(var(--u) * 52);
-    border-radius: 50%;
-    background: var(--c);
-    display: grid;
-    place-items: center;
-  }
-
-  /* soft pulse ring behind each icon, staggered */
-  .pps-ico::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 2px solid var(--c);
-    animation: pps-pulse 2.6s ease-out infinite;
-  }
-
-  .pps-row-mail .pps-ico::after {
-    animation-delay: .8s;
-  }
-
-  .pps-row-chat .pps-ico::after {
-    animation-delay: 1.6s;
-  }
-
-  .pps-ico svg {
-    width: 52%;
-    height: 52%;
-    fill: none;
-    stroke: #fff;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .pps-row-call .pps-ico svg {
-    animation: pps-ring 3.2s ease-in-out infinite;
-    transform-origin: 50% 50%;
-  }
-
-  .pps-row-mail .pps-ico svg {
-    animation: pps-bob 3.2s ease-in-out .6s infinite;
-  }
-
-  .pps-row-chat .pps-ico svg {
-    animation: pps-bob 3.2s ease-in-out 1.2s infinite;
-  }
-
-  .pps-txt b {
-    display: block;
-    font-size: calc(var(--u) * 19);
-    line-height: 1.2;
-  }
-
-  .pps-txt small {
-    display: block;
-    margin-top: 2px;
-    font-size: calc(var(--u) * 15);
-    color: #55617c;
-  }
-
-  .pps-arrow {
-    font-size: calc(var(--u) * 24);
-    color: var(--c);
-    animation: pps-nudge 2.4s ease-in-out infinite;
-  }
-
-  .pps-row-mail .pps-arrow {
-    animation-delay: .4s;
-  }
-
-  .pps-row-chat .pps-arrow {
-    animation-delay: .8s;
-  }
-
-  @keyframes pps-float {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(calc(var(--u) * -14));
-    }
-  }
-
-  @keyframes pps-in {
-    from {
-      opacity: 0;
-      transform: translateX(calc(var(--u) * 24));
-    }
-
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @keyframes pps-fly {
-
-    0%,
-    100% {
-      transform: translate(0, 0) rotate(0);
-    }
-
-    50% {
-      transform: translate(6px, -8px) rotate(6deg);
-    }
-  }
-
-  @keyframes pps-dash {
-    to {
-      stroke-dashoffset: -20;
-    }
-  }
-
-  @keyframes pps-pulse {
-    0% {
-      transform: scale(1);
-      opacity: .55;
-    }
-
-    70%,
-    100% {
-      transform: scale(1.55);
-      opacity: 0;
-    }
-  }
-
-  @keyframes pps-ring {
-
-    0%,
-    60%,
-    100% {
-      transform: rotate(0);
-    }
-
-    66% {
-      transform: rotate(-14deg);
-    }
-
-    72% {
-      transform: rotate(12deg);
-    }
-
-    78% {
-      transform: rotate(-10deg);
-    }
-
-    84% {
-      transform: rotate(8deg);
-    }
-
-    90% {
-      transform: rotate(0);
-    }
-  }
-
-  @keyframes pps-bob {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-2px) scale(1.06);
-    }
-  }
-
-  @keyframes pps-nudge {
-
-    0%,
-    100% {
-      transform: translateX(0);
-    }
-
-    50% {
-      transform: translateX(calc(var(--u) * 7));
-    }
-  }
-
-  /* ---------- Feature points ---------- */
-  .pps-points {
-    list-style: none;
-    margin: 56px 0 34px;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 28px;
-  }
-
-  .pps-points h3 {
-    font-size: 16.5px;
-    line-height: 1.35;
-    margin: 0 0 6px;
-    color: #0b1220;
-  }
-
-  .pps-points p {
-    font-size: 14.5px;
-    line-height: 1.65;
-    color: #5b657d;
-    margin: 0;
-  }
-
-  .pps-points li {
-    padding-top: 16px;
-    border-top: 2px solid #215af8;
-  }
-
-  .pps-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-  }
-
-  @media (max-width: 980px) {
-    .pps {
-      padding: 64px 0;
-    }
-
-    .pps-points {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  /* Phones: the card leaves the image and sits below it at normal size */
-  @media (max-width: 720px) {
-    .pps-contact {
-      --u: 1px;
-      position: relative;
-      left: auto;
-      top: auto;
-      width: auto;
-      margin: -28px 14px 0;
-      padding: 22px 20px 22px;
-    }
-
-    .pps-contact-title {
-      margin-top: 26px;
-      font-size: 24px;
-    }
-
-    .pps-plane {
-      width: 64px;
-      height: 64px;
-      top: 22px;
-    }
-
-    .pps-points {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-
-    .pps-contact,
-    .pps-row,
-    .pps-arrow,
-    .pps-ico::after,
-    .pps-ico svg,
-    .pps-plane .pps-plane-icon,
-    .pps-plane .pps-trail {
-      animation: none !important;
-    }
-
-    .pps-row {
-      opacity: 1;
-    }
-  }
-</style>
-
-<!-- ============================================================
-     PASTE THIS in front-page.php, directly ABOVE:
-        <section class="audience-section" aria-labelledby="audience-title">
-
-     IMAGE: upload pipeline-dashboard-clean.png to
-        /assets/images/pipeline-dashboard-clean.png
-     (this version has the "Get in Touch" box removed - the box
-      is rebuilt below in HTML/CSS so it can be animated)
-     ============================================================ -->
-
-<style id="vistaarflow-pipeline-showcase">
-  .pps {
-    position: relative;
-    background: linear-gradient(180deg, #f5f8ff 0%, #ffffff 100%);
-    padding: 88px 0 80px;
-    overflow: hidden;
-  }
-
-  .pps-head {
-    text-align: center;
-    max-width: 780px;
-    margin: 0 auto 44px;
-  }
-
-  .pps-head h2 {
-    margin: 14px 0 16px;
-  }
-
-  .pps-head p {
-    color: #475069;
-    font-size: 17px;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  /* ---------- Image stage ---------- */
-  .pps-figure {
-    margin: 0 auto;
-    max-width: 1180px;
-  }
-
-  .pps-stage {
-    position: relative;
-    container-type: inline-size;
-  }
-
-  .pps-stage>img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 22px;
-    box-shadow: 0 34px 70px -30px rgba(3, 22, 73, .38);
-  }
-
-  .pps-figure figcaption {
-    margin-top: 16px;
-    text-align: center;
-    font-size: 13.5px;
-    color: #6b7590;
-  }
-
-  /* ---------- Animated "Get in Touch" card ----------
-     Everything is sized from --u (1 unit = 1px of the 1672px-wide image),
-     so the card scales together with the screenshot. */
-  .pps-contact {
-    --u: calc(100cqw / 1672);
-    position: absolute;
-    left: 81.7%;
-    top: 27.8%;
-    width: 17.7%;
-    box-sizing: border-box;
-    padding: calc(var(--u) * 26) calc(var(--u) * 26) calc(var(--u) * 28);
-    border-radius: calc(var(--u) * 30);
-    background: linear-gradient(160deg, rgba(255, 255, 255, .97), rgba(240, 245, 255, .95));
-    border: 1px solid rgba(255, 255, 255, .9);
-    box-shadow: 0 calc(var(--u) * 30) calc(var(--u) * 60) calc(var(--u) * -18) rgba(3, 22, 73, .35);
-    animation: pps-float 7s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  .pps-contact[hidden] {
-    display: none;
-  }
-
-  .pps-close {
-    position: absolute;
-    top: calc(var(--u) * 14);
-    right: calc(var(--u) * 14);
-    width: calc(var(--u) * 30);
-    height: calc(var(--u) * 30);
-    border: 0;
-    border-radius: 50%;
-    background: #fff;
-    color: #0b1220;
-    font-size: calc(var(--u) * 20);
-    line-height: 1;
-    display: grid;
-    place-items: center;
-    padding: 0;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(3, 22, 73, .18);
-  }
-
-  .pps-plane {
-    position: absolute;
-    top: calc(var(--u) * 52);
-    right: calc(var(--u) * 26);
-    width: calc(var(--u) * 92);
-    height: calc(var(--u) * 92);
-    overflow: visible;
-    pointer-events: none;
-  }
-
-  .pps-plane .pps-plane-icon {
-    animation: pps-fly 4.2s ease-in-out infinite;
-    transform-origin: center;
-    transform-box: fill-box;
-  }
-
-  .pps-plane .pps-trail {
-    stroke-dasharray: 4 6;
-    animation: pps-dash 1.6s linear infinite;
-  }
-
-  .pps-contact-title {
-    margin: calc(var(--u) * 62) 0 calc(var(--u) * 8);
-    font-size: calc(var(--u) * 33);
-    line-height: 1.1;
-    font-weight: 800;
-    letter-spacing: -.02em;
-    color: #0b1220;
-  }
-
-  .pps-contact-sub {
-    margin: 0 0 calc(var(--u) * 26);
-    max-width: 82%;
-    font-size: calc(var(--u) * 19);
-    line-height: 1.35;
-    color: #4d5875;
-  }
-
-  .pps-row {
-    position: relative;
-    display: grid;
-    grid-template-columns: calc(var(--u) * 52) 1fr auto;
-    align-items: center;
-    gap: calc(var(--u) * 14);
-    padding: calc(var(--u) * 13) calc(var(--u) * 16);
-    margin-top: calc(var(--u) * 14);
-    border-radius: calc(var(--u) * 16);
-    text-decoration: none;
-    color: #0b1220;
-    opacity: 0;
-    animation: pps-in .7s cubic-bezier(.2, .8, .2, 1) forwards;
-    transition: transform .25s ease, box-shadow .25s ease;
-  }
-
-  .pps-row:hover {
-    transform: translateX(calc(var(--u) * -4));
-    box-shadow: 0 8px 20px -10px rgba(3, 22, 73, .35);
-  }
-
-  .pps-row:focus-visible,
-  .pps-close:focus-visible {
-    outline: 2px solid #215af8;
-    outline-offset: 2px;
-  }
-
-  .pps-row-call {
-    background: rgba(16, 185, 129, .13);
-    animation-delay: .15s;
-    --c: #12a15b;
-  }
-
-  .pps-row-mail {
-    background: rgba(33, 90, 248, .11);
-    animation-delay: .3s;
-    --c: #1f6bff;
-  }
-
-  .pps-row-chat {
-    background: rgba(124, 58, 237, .11);
-    animation-delay: .45s;
-    --c: #7c3aed;
-  }
-
-  .pps-ico {
-    position: relative;
-    width: calc(var(--u) * 52);
-    height: calc(var(--u) * 52);
-    border-radius: 50%;
-    background: var(--c);
-    display: grid;
-    place-items: center;
-  }
-
-  /* soft pulse ring behind each icon, staggered */
-  .pps-ico::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 2px solid var(--c);
-    animation: pps-pulse 2.6s ease-out infinite;
-  }
-
-  .pps-row-mail .pps-ico::after {
-    animation-delay: .8s;
-  }
-
-  .pps-row-chat .pps-ico::after {
-    animation-delay: 1.6s;
-  }
-
-  .pps-ico svg {
-    width: 52%;
-    height: 52%;
-    fill: none;
-    stroke: #fff;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .pps-row-call .pps-ico svg {
-    animation: pps-ring 3.2s ease-in-out infinite;
-    transform-origin: 50% 50%;
-  }
-
-  .pps-row-mail .pps-ico svg {
-    animation: pps-bob 3.2s ease-in-out .6s infinite;
-  }
-
-  .pps-row-chat .pps-ico svg {
-    animation: pps-bob 3.2s ease-in-out 1.2s infinite;
-  }
-
-  .pps-txt b {
-    display: block;
-    font-size: calc(var(--u) * 19);
-    line-height: 1.2;
-  }
-
-  .pps-txt small {
-    display: block;
-    margin-top: 2px;
-    font-size: calc(var(--u) * 15);
-    color: #55617c;
-  }
-
-  .pps-arrow {
-    font-size: calc(var(--u) * 24);
-    color: var(--c);
-    animation: pps-nudge 2.4s ease-in-out infinite;
-  }
-
-  .pps-row-mail .pps-arrow {
-    animation-delay: .4s;
-  }
-
-  .pps-row-chat .pps-arrow {
-    animation-delay: .8s;
-  }
-
-  @keyframes pps-float {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(calc(var(--u) * -14));
-    }
-  }
-
-  @keyframes pps-in {
-    from {
-      opacity: 0;
-      transform: translateX(calc(var(--u) * 24));
-    }
-
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @keyframes pps-fly {
-
-    0%,
-    100% {
-      transform: translate(0, 0) rotate(0);
-    }
-
-    50% {
-      transform: translate(6px, -8px) rotate(6deg);
-    }
-  }
-
-  @keyframes pps-dash {
-    to {
-      stroke-dashoffset: -20;
-    }
-  }
-
-  @keyframes pps-pulse {
-    0% {
-      transform: scale(1);
-      opacity: .55;
-    }
-
-    70%,
-    100% {
-      transform: scale(1.55);
-      opacity: 0;
-    }
-  }
-
-  @keyframes pps-ring {
-
-    0%,
-    60%,
-    100% {
-      transform: rotate(0);
-    }
-
-    66% {
-      transform: rotate(-14deg);
-    }
-
-    72% {
-      transform: rotate(12deg);
-    }
-
-    78% {
-      transform: rotate(-10deg);
-    }
-
-    84% {
-      transform: rotate(8deg);
-    }
-
-    90% {
-      transform: rotate(0);
-    }
-  }
-
-  @keyframes pps-bob {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-2px) scale(1.06);
-    }
-  }
-
-  @keyframes pps-nudge {
-
-    0%,
-    100% {
-      transform: translateX(0);
-    }
-
-    50% {
-      transform: translateX(calc(var(--u) * 7));
-    }
-  }
-
-  /* ---------- Feature points ---------- */
-  .pps-points {
-    list-style: none;
-    margin: 56px 0 34px;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 28px;
-  }
-
-  .pps-points h3 {
-    font-size: 16.5px;
-    line-height: 1.35;
-    margin: 0 0 6px;
-    color: #0b1220;
-  }
-
-  .pps-points p {
-    font-size: 14.5px;
-    line-height: 1.65;
-    color: #5b657d;
-    margin: 0;
-  }
-
-  .pps-points li {
-    padding-top: 16px;
-    border-top: 2px solid #215af8;
-  }
-
-  .pps-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-  }
-
-  @media (max-width: 980px) {
-    .pps {
-      padding: 64px 0;
-    }
-
-    .pps-points {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  /* Phones: the card leaves the image and sits below it at normal size */
-  @media (max-width: 720px) {
-    .pps-contact {
-      --u: 1px;
-      position: relative;
-      left: auto;
-      top: auto;
-      width: auto;
-      margin: -28px 14px 0;
-      padding: 22px 20px 22px;
-    }
-
-    .pps-contact-title {
-      margin-top: 26px;
-      font-size: 24px;
-    }
-
-    .pps-plane {
-      width: 64px;
-      height: 64px;
-      top: 22px;
-    }
-
-    .pps-points {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* ---------- Start animations only when scrolled into view ----------
-     JS adds .pps-armed on load (paused), then .pps-live when visible.
-     Without JS nothing is paused, so the card still animates. */
-  .pps-stage.pps-armed .pps-contact,
-  .pps-stage.pps-armed .pps-contact *,
-  .pps-stage.pps-armed .pps-contact *::after {
-    animation-play-state: paused;
-  }
-
-  .pps-stage.pps-armed.pps-live .pps-contact,
-  .pps-stage.pps-armed.pps-live .pps-contact *,
-  .pps-stage.pps-armed.pps-live .pps-contact *::after {
-    animation-play-state: running;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-
-    .pps-contact,
-    .pps-row,
-    .pps-arrow,
-    .pps-ico::after,
-    .pps-ico svg,
-    .pps-plane .pps-plane-icon,
-    .pps-plane .pps-trail {
-      animation: none !important;
-    }
-
-    .pps-row {
-      opacity: 1;
-    }
-  }
-</style>
-
-<!-- ============================================================
-     PASTE THIS in front-page.php, directly ABOVE:
-        <section class="audience-section" aria-labelledby="audience-title">
-
-     IMAGE: upload pipeline-dashboard-clean.png to
-        /assets/images/pipeline-dashboard-clean.png
-     (this version has the "Get in Touch" box removed - the box
-      is rebuilt below in HTML/CSS so it can be animated)
-     ============================================================ -->
-
-<style id="vistaarflow-pipeline-showcase">
-  .pps {
-    position: relative;
-    background: linear-gradient(180deg, #f5f8ff 0%, #ffffff 100%);
-    padding: 88px 0 80px;
-    overflow: hidden;
-  }
-
-  .pps-head {
-    text-align: center;
-    max-width: 780px;
-    margin: 0 auto 44px;
-  }
-
-  .pps-head h2 {
-    margin: 14px 0 16px;
-  }
-
-  .pps-head p {
-    color: #475069;
-    font-size: 17px;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  /* ---------- Image stage ---------- */
-  .pps-figure {
-    margin: 0 auto;
-    max-width: 1180px;
-  }
-
-  .pps-stage {
-    position: relative;
-    container-type: inline-size;
-  }
-
-  .pps-stage>img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 22px;
-    box-shadow: 0 34px 70px -30px rgba(3, 22, 73, .38);
-  }
-
-  .pps-figure figcaption {
-    margin-top: 16px;
-    text-align: center;
-    font-size: 13.5px;
-    color: #6b7590;
-  }
-
-  /* ---------- Animated "Get in Touch" card ----------
-     Everything is sized from --u (1 unit = 1px of the 1672px-wide image),
-     so the card scales together with the screenshot. */
-  .pps-contact {
-    --u: calc(100cqw / 1672);
-    position: absolute;
-    left: 81.7%;
-    top: 27.8%;
-    width: 17.7%;
-    box-sizing: border-box;
-    padding: calc(var(--u) * 26) calc(var(--u) * 26) calc(var(--u) * 28);
-    border-radius: calc(var(--u) * 30);
-    background: linear-gradient(160deg, rgba(255, 255, 255, .97), rgba(240, 245, 255, .95));
-    border: 1px solid rgba(255, 255, 255, .9);
-    box-shadow: 0 calc(var(--u) * 30) calc(var(--u) * 60) calc(var(--u) * -18) rgba(3, 22, 73, .35);
-    animation: pps-float 7s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  .pps-contact[hidden] {
-    display: none;
-  }
-
-  .pps-close {
-    position: absolute;
-    top: calc(var(--u) * 14);
-    right: calc(var(--u) * 14);
-    width: calc(var(--u) * 30);
-    height: calc(var(--u) * 30);
-    border: 0;
-    border-radius: 50%;
-    background: #fff;
-    color: #0b1220;
-    font-size: calc(var(--u) * 20);
-    line-height: 1;
-    display: grid;
-    place-items: center;
-    padding: 0;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(3, 22, 73, .18);
-  }
-
-  .pps-plane {
-    position: absolute;
-    top: calc(var(--u) * 52);
-    right: calc(var(--u) * 26);
-    width: calc(var(--u) * 92);
-    height: calc(var(--u) * 92);
-    overflow: visible;
-    pointer-events: none;
-  }
-
-  .pps-plane .pps-plane-icon {
-    animation: pps-fly 6.5s ease-in-out infinite;
-    transform-origin: center;
-    transform-box: fill-box;
-  }
-
-  .pps-plane .pps-trail {
-    stroke-dasharray: 4 6;
-    animation: pps-dash 3s linear infinite;
-  }
-
-  .pps-contact-title {
-    margin: calc(var(--u) * 62) 0 calc(var(--u) * 8);
-    font-size: calc(var(--u) * 33);
-    line-height: 1.1;
-    font-weight: 800;
-    letter-spacing: -.02em;
-    color: #0b1220;
-  }
-
-  .pps-contact-sub {
-    margin: 0 0 calc(var(--u) * 26);
-    max-width: 82%;
-    font-size: calc(var(--u) * 19);
-    line-height: 1.35;
-    color: #4d5875;
-  }
-
-  .pps-row {
-    position: relative;
-    display: grid;
-    grid-template-columns: calc(var(--u) * 52) 1fr auto;
-    align-items: center;
-    gap: calc(var(--u) * 14);
-    padding: calc(var(--u) * 13) calc(var(--u) * 16);
-    margin-top: calc(var(--u) * 14);
-    border-radius: calc(var(--u) * 16);
-    text-decoration: none;
-    color: #0b1220;
-    opacity: 0;
-    animation: pps-in 1.3s cubic-bezier(.2, .8, .2, 1) forwards;
-    transition: transform .25s ease, box-shadow .25s ease;
-  }
-
-  .pps-row:hover {
-    transform: translateX(calc(var(--u) * -4));
-    box-shadow: 0 8px 20px -10px rgba(3, 22, 73, .35);
-  }
-
-  .pps-row:focus-visible,
-  .pps-close:focus-visible {
-    outline: 2px solid #215af8;
-    outline-offset: 2px;
-  }
-
-  .pps-row-call {
-    background: rgba(16, 185, 129, .13);
-    animation-delay: .3s;
-    --c: #12a15b;
-  }
-
-  .pps-row-mail {
-    background: rgba(33, 90, 248, .11);
-    animation-delay: .8s;
-    --c: #1f6bff;
-  }
-
-  .pps-row-chat {
-    background: rgba(124, 58, 237, .11);
-    animation-delay: 1.3s;
-    --c: #7c3aed;
-  }
-
-  .pps-ico {
-    position: relative;
-    width: calc(var(--u) * 52);
-    height: calc(var(--u) * 52);
-    border-radius: 50%;
-    background: var(--c);
-    display: grid;
-    place-items: center;
-  }
-
-  /* soft pulse ring behind each icon, staggered */
-  .pps-ico::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 2px solid var(--c);
-    animation: pps-pulse 4.2s ease-out infinite;
-  }
-
-  .pps-row-mail .pps-ico::after {
-    animation-delay: 1.4s;
-  }
-
-  .pps-row-chat .pps-ico::after {
-    animation-delay: 2.8s;
-  }
-
-  .pps-ico svg {
-    width: 52%;
-    height: 52%;
-    fill: none;
-    stroke: #fff;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .pps-row-call .pps-ico svg {
-    animation: pps-ring 5.5s ease-in-out infinite;
-    transform-origin: 50% 50%;
-  }
-
-  .pps-row-mail .pps-ico svg {
-    animation: pps-bob 5s ease-in-out 1s infinite;
-  }
-
-  .pps-row-chat .pps-ico svg {
-    animation: pps-bob 5s ease-in-out 2s infinite;
-  }
-
-  .pps-txt b {
-    display: block;
-    font-size: calc(var(--u) * 19);
-    line-height: 1.2;
-  }
-
-  .pps-txt small {
-    display: block;
-    margin-top: 2px;
-    font-size: calc(var(--u) * 15);
-    color: #55617c;
-  }
-
-  .pps-arrow {
-    font-size: calc(var(--u) * 24);
-    color: var(--c);
-    animation: pps-nudge 3.8s ease-in-out infinite;
-  }
-
-  .pps-row-mail .pps-arrow {
-    animation-delay: .7s;
-  }
-
-  .pps-row-chat .pps-arrow {
-    animation-delay: 1.4s;
-  }
-
-  @keyframes pps-float {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(calc(var(--u) * -14));
-    }
-  }
-
-  @keyframes pps-in {
-    from {
-      opacity: 0;
-      transform: translateX(calc(var(--u) * 24));
-    }
-
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @keyframes pps-fly {
-
-    0%,
-    100% {
-      transform: translate(0, 0) rotate(0);
-    }
-
-    50% {
-      transform: translate(6px, -8px) rotate(6deg);
-    }
-  }
-
-  @keyframes pps-dash {
-    to {
-      stroke-dashoffset: -20;
-    }
-  }
-
-  @keyframes pps-pulse {
-    0% {
-      transform: scale(1);
-      opacity: .55;
-    }
-
-    70%,
-    100% {
-      transform: scale(1.55);
-      opacity: 0;
-    }
-  }
-
-  @keyframes pps-ring {
-
-    0%,
-    60%,
-    100% {
-      transform: rotate(0);
-    }
-
-    66% {
-      transform: rotate(-14deg);
-    }
-
-    72% {
-      transform: rotate(12deg);
-    }
-
-    78% {
-      transform: rotate(-10deg);
-    }
-
-    84% {
-      transform: rotate(8deg);
-    }
-
-    90% {
-      transform: rotate(0);
-    }
-  }
-
-  @keyframes pps-bob {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-2px) scale(1.06);
-    }
-  }
-
-  @keyframes pps-nudge {
-
-    0%,
-    100% {
-      transform: translateX(0);
-    }
-
-    50% {
-      transform: translateX(calc(var(--u) * 7));
-    }
-  }
-
-  /* ---------- Feature points ---------- */
-  .pps-points {
-    list-style: none;
-    margin: 56px 0 34px;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 28px;
-  }
-
-  .pps-points h3 {
-    font-size: 16.5px;
-    line-height: 1.35;
-    margin: 0 0 6px;
-    color: #0b1220;
-  }
-
-  .pps-points p {
-    font-size: 14.5px;
-    line-height: 1.65;
-    color: #5b657d;
-    margin: 0;
-  }
-
-  .pps-points li {
-    padding-top: 16px;
-    border-top: 2px solid #215af8;
-  }
-
-  .pps-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-  }
-
-  @media (max-width: 980px) {
-    .pps {
-      padding: 64px 0;
-    }
-
-    .pps-points {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  /* Phones: the card leaves the image and sits below it at normal size */
-  @media (max-width: 720px) {
-    .pps-contact {
-      --u: 1px;
-      position: relative;
-      left: auto;
-      top: auto;
-      width: auto;
-      margin: -28px 14px 0;
-      padding: 22px 20px 22px;
-    }
-
-    .pps-contact-title {
-      margin-top: 26px;
-      font-size: 24px;
-    }
-
-    .pps-plane {
-      width: 64px;
-      height: 64px;
-      top: 22px;
-    }
-
-    .pps-points {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* ---------- Start animations only when scrolled into view ----------
-     JS adds .pps-armed on load (paused), then .pps-live when visible.
-     Without JS nothing is paused, so the card still animates. */
-  .pps-stage.pps-armed .pps-contact,
-  .pps-stage.pps-armed .pps-contact *,
-  .pps-stage.pps-armed .pps-contact *::after {
-    animation-play-state: paused;
-  }
-
-  .pps-stage.pps-armed.pps-live .pps-contact,
-  .pps-stage.pps-armed.pps-live .pps-contact *,
-  .pps-stage.pps-armed.pps-live .pps-contact *::after {
-    animation-play-state: running;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-
-    .pps-contact,
-    .pps-row,
-    .pps-arrow,
-    .pps-ico::after,
-    .pps-ico svg,
-    .pps-plane .pps-plane-icon,
-    .pps-plane .pps-trail {
-      animation: none !important;
-    }
-
-    .pps-row {
-      opacity: 1;
-    }
-  }
-</style>
-
-<!-- ============================================================
-     PASTE THIS in front-page.php, directly ABOVE:
-        <section class="audience-section" aria-labelledby="audience-title">
-
-     IMAGE: upload pipeline-dashboard-clean.png to
-        /assets/images/pipeline-dashboard-clean.png
-     (this version has the "Get in Touch" box removed - the box
-      is rebuilt below in HTML/CSS so it can be animated)
+     PIPELINE SHOWCASE (styles)
+     IMAGE: /assets/images/piplineweb.png
+     The "Get in Touch" card is built in HTML/CSS so it can be animated.
      ============================================================ -->
 
 <style id="vistaarflow-pipeline-showcase">
@@ -2379,7 +808,6 @@
             <span class="pps-arrow" aria-hidden="true">&rarr;</span>
           </a>
 
-          <!-- TODO: replace 910000000000 with your WhatsApp number (country code + number, no + or spaces) -->
           <a class="pps-row pps-row-chat"
             href="<?php echo esc_url('https://wa.me/919867310179?text=' . rawurlencode('Hi VistaarFlow, I would like to know more about your CRM.')); ?>"
             target="_blank" rel="noopener noreferrer">
@@ -2461,13 +889,6 @@
       </div>
     </div>
   </section>
-  <!-- ============================================================
-     REPLACE this in front-page.php:
-        <section id="whatsapp-container">
-
-        </section>
-     WITH everything below.
-     ============================================================ -->
 
   <section id="whatsapp-container" class="section" aria-labelledby="whatsapp-title">
     <span class="wa-glow wa-glow-one" aria-hidden="true"></span>
@@ -2639,6 +1060,299 @@
 
     </div>
   </section>
+
+<?php
+/* ============================================================
+   BLOG VIDEO SECTION (click-to-play YouTube + blog post content)
+
+   1. Paste your YouTube link into $vf_video_url.
+   2. Banner image: upload to assets/images/video-banner.jpg in your theme
+      (or change $vf_banner_file). Until it exists, YouTube's thumbnail is used.
+   3. Blog text beside the video: $vf_blog_post_id = 0 shows your latest
+      published post. Put a post ID (number) to show a specific post.
+   This section is ALWAYS visible, even before you add the link.
+   ============================================================ */
+$vf_video_url    = 'https://youtu.be/N8sJzjsyW0o?si=87x3s_zGkCxXd0oA';
+$vf_video_title  = 'How to connect your Whatsapp Business Account with VistaarFlow CRM';
+$vf_banner_file  = 'video-banner.jpg';
+$vf_blog_post_id = 0;
+
+$vf_video_id = '';
+if (preg_match('~(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|shorts/|live/))([A-Za-z0-9_-]{11})~', $vf_video_url, $vf_m)) {
+  $vf_video_id = $vf_m[1];
+}
+
+$vf_banner_src  = '';
+$vf_banner_path = get_template_directory() . '/assets/images/' . $vf_banner_file;
+if (file_exists($vf_banner_path)) {
+  $vf_banner_src = get_template_directory_uri() . '/assets/images/' . $vf_banner_file;
+} elseif ($vf_video_id) {
+  $vf_banner_src = 'https://i.ytimg.com/vi/' . $vf_video_id . '/hqdefault.jpg';
+}
+
+$vf_blog_post = $vf_blog_post_id ? get_post($vf_blog_post_id) : null;
+if (!$vf_blog_post) {
+  $vf_latest    = get_posts(['numberposts' => 1, 'post_status' => 'publish']);
+  $vf_blog_post = $vf_latest ? $vf_latest[0] : null;
+}
+?>
+<style id="vistaarflow-video-section">
+  .video-section {
+    background: linear-gradient(180deg, #ffffff 0%, #f5f8ff 100%);
+    padding: 80px 0;
+  }
+
+  .video-head {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 40px;
+  }
+
+  .video-head h2 {
+    margin: 14px 0 14px;
+  }
+
+  .video-head p {
+    color: #475069;
+    font-size: 17px;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .vf-video-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 36px;
+    align-items: center;
+  }
+
+  .vf-video-layout.vf-no-post {
+    grid-template-columns: minmax(0, 960px);
+    justify-content: center;
+  }
+
+  .vf-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 22px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #031649, #215af8);
+    box-shadow: 0 34px 70px -30px rgba(3, 22, 73, .45);
+  }
+
+  .vf-video-play,
+  .vf-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .vf-video-play {
+    padding: 0;
+    cursor: pointer;
+    background: none;
+  }
+
+  .vf-video-play img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s ease, filter .3s ease;
+  }
+
+  .vf-video-play:hover img {
+    transform: scale(1.03);
+    filter: brightness(.88);
+  }
+
+  /* YouTube logo in the middle of the banner */
+  .vf-yt-logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 104px;
+    height: auto;
+    margin: -37px 0 0 -52px;
+    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .4));
+    transition: transform .25s ease;
+  }
+
+  .vf-yt-logo .vf-yt-bg {
+    fill: #ff0000;
+    transition: fill .25s ease;
+  }
+
+  .vf-video-play:hover .vf-yt-logo {
+    transform: scale(1.1);
+  }
+
+  .vf-video-play:hover .vf-yt-bg {
+    fill: #cc0000;
+  }
+
+  .vf-video-play:focus-visible {
+    outline: 3px solid #215af8;
+    outline-offset: -3px;
+  }
+
+  /* Blog content card */
+  .vf-blog-card {
+    background: #fff;
+    border: 1px solid #dbe3f5;
+    border-radius: 22px;
+    padding: 32px;
+    box-shadow: 0 24px 50px -30px rgba(3, 22, 73, .3);
+  }
+
+  .vf-blog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #6b7590;
+    margin-bottom: 14px;
+  }
+
+  .vf-blog-cat {
+    background: #e4ecff;
+    color: #215af8;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 999px;
+  }
+
+  .vf-blog-card h3 {
+    margin: 0 0 12px;
+    font-size: 24px;
+    line-height: 1.25;
+    color: #0b1220;
+  }
+
+  .vf-blog-card h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .vf-blog-card p {
+    margin: 0 0 20px;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: #475069;
+  }
+
+  .vf-admin-note {
+    margin: 14px 0 0;
+    padding: 12px 16px;
+    border: 1px dashed #d9a400;
+    background: #fff8dc;
+    border-radius: 12px;
+    color: #5a4500;
+    font-size: 14px;
+  }
+
+  @media (max-width: 980px) {
+    .vf-video-layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .video-section {
+      padding: 56px 0;
+    }
+
+    .vf-video {
+      border-radius: 14px;
+    }
+
+    .vf-yt-logo {
+      width: 72px;
+      margin: -26px 0 0 -36px;
+    }
+
+    .vf-blog-card {
+      padding: 24px;
+    }
+
+    .vf-blog-card h3 {
+      font-size: 21px;
+    }
+  }
+</style>
+
+<section class="video-section" aria-labelledby="video-title">
+  <div class="container">
+    <div class="video-head">
+      <div class="eyebrow">FROM OUR BLOG</div>
+      <h2 id="video-title">See it in action, <em>in under a few minutes.</em></h2>
+      <p>Short description of what this video covers and why it helps small businesses and real estate agents.</p>
+    </div>
+
+    <div class="vf-video-layout<?php echo $vf_blog_post ? '' : ' vf-no-post'; ?>">
+      <div>
+        <div class="vf-video">
+          <button class="vf-video-play" type="button"
+            data-video-id="<?php echo esc_attr($vf_video_id); ?>"
+            data-video-title="<?php echo esc_attr($vf_video_title); ?>"
+            aria-label="<?php echo esc_attr('Play video: ' . $vf_video_title); ?>">
+            <?php if ($vf_banner_src): ?>
+              <img src="<?php echo esc_url($vf_banner_src); ?>" alt="" loading="lazy" decoding="async" width="1280"
+                height="720">
+            <?php endif; ?>
+            <svg class="vf-yt-logo" viewBox="0 0 68 48" aria-hidden="true">
+              <path class="vf-yt-bg"
+                d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" />
+              <path d="M45 24 27 14v20z" fill="#fff" />
+            </svg>
+          </button>
+        </div>
+        <?php if (!$vf_video_id && current_user_can('manage_options')): ?>
+          <p class="vf-admin-note">Admin notice (visitors can't see this): add your YouTube link in
+            <code>$vf_video_url</code> in front-page.php so the video can play.</p>
+        <?php endif; ?>
+      </div>
+
+      <?php if ($vf_blog_post):
+        $vf_cats = get_the_category($vf_blog_post->ID);
+        $vf_cat  = $vf_cats ? $vf_cats[0]->name : 'Insights';
+        ?>
+        <article class="vf-blog-card">
+          <div class="vf-blog-meta">
+            <span class="vf-blog-cat"><?php echo esc_html($vf_cat); ?></span>
+            <span><?php echo esc_html(get_the_date('', $vf_blog_post)); ?></span>
+          </div>
+          <h3><a href="<?php echo esc_url(get_permalink($vf_blog_post)); ?>"><?php echo esc_html(get_the_title($vf_blog_post)); ?></a></h3>
+          <p><?php echo esc_html(wp_trim_words(get_the_excerpt($vf_blog_post), 38)); ?></p>
+          <a class="button" href="<?php echo esc_url(get_permalink($vf_blog_post)); ?>">Read the full article <span>→</span></a>
+        </article>
+      <?php endif; ?>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var btn = document.querySelector('.vf-video-play');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      if (!btn.dataset.videoId) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.videoId + '?autoplay=1&rel=0';
+      f.title = btn.dataset.videoTitle;
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      btn.parentNode.replaceChild(f, btn);
+    });
+  })();
+</script>
+
   <section class="logo-strip">
     <div class="container"><span>Connect the tools your team already loves</span>
       <div><b>WhatsApp</b><b>Meta</b><b>Gmail</b><b>Google Calendar</b><b>Twilio</b><b>OpenAI</b></div>
@@ -2831,9 +1545,6 @@
       </div>
     </div>
   </section>
-
-
- 
 
   <section class="instant-lead-section" aria-labelledby="instant-lead-title">
     <div class="container instant-lead-layout">
