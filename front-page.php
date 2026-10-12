@@ -1073,9 +1073,9 @@
    This section is ALWAYS visible, even before you add the link.
    ============================================================ */
 $vf_video_url    = 'https://youtu.be/N8sJzjsyW0o?si=87x3s_zGkCxXd0oA';
-$vf_video_title  = 'How to connect your Whatsapp Business Account with VistaarFlow CRM';
+// $vf_video_title  = 'How to connect your Whatsapp Business Account with VistaarFlow CRM';
 $vf_banner_file  = 'video-banner.jpg';
-$vf_blog_post_id = 0;
+// $vf_blog_post_id = 0;
 
 $vf_video_id = '';
 if (preg_match('~(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|shorts/|live/))([A-Za-z0-9_-]{11})~', $vf_video_url, $vf_m)) {
@@ -1090,12 +1090,12 @@ if (file_exists($vf_banner_path)) {
   $vf_banner_src = 'https://i.ytimg.com/vi/' . $vf_video_id . '/hqdefault.jpg';
 }
 
-$vf_blog_post = $vf_blog_post_id ? get_post($vf_blog_post_id) : null;
-if (!$vf_blog_post) {
-  $vf_latest    = get_posts(['numberposts' => 1, 'post_status' => 'publish']);
-  $vf_blog_post = $vf_latest ? $vf_latest[0] : null;
-}
-?>
+// $vf_blog_post = $vf_blog_post_id ? get_post($vf_blog_post_id) : null;
+// if (!$vf_blog_post) {
+//   $vf_latest    = get_posts(['numberposts' => 1, 'post_status' => 'publish']);
+//   $vf_blog_post = $vf_latest ? $vf_latest[0] : null;
+// }
+// ?>
 <style id="vistaarflow-video-section">
   .video-section {
     background: linear-gradient(180deg, #ffffff 0%, #f5f8ff 100%);
@@ -1290,9 +1290,9 @@ if (!$vf_blog_post) {
 <section class="video-section" aria-labelledby="video-title">
   <div class="container">
     <div class="video-head">
-      <div class="eyebrow">FROM OUR BLOG</div>
-      <h2 id="video-title">See it in action, <em>in under a few minutes.</em></h2>
-      <p>Short description of what this video covers and why it helps small businesses and real estate agents.</p>
+      <div class="eyebrow">WATCH &amp; LEARN</div>
+      <h2 id="video-title">Connect WhatsApp to your CRM <em>in just a few minutes.</em></h2>
+      <p>See how to link your WhatsApp Business account with VistaarFlow, so every enquiry becomes a contact and your whole team can reply, follow up and track opportunities from one shared inbox.</p>
     </div>
 
     <div class="vf-video-layout<?php echo $vf_blog_post ? '' : ' vf-no-post'; ?>">
