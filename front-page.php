@@ -1063,81 +1063,195 @@
 
 <?php
 /* ============================================================
-   BLOG VIDEO SECTION (click-to-play YouTube + blog post content)
+   VIDEO SECTION - SCALABLE SLIDER
+   Works with 1, 2, 3 or any number of videos.
 
-   1. Paste your YouTube link into $vf_video_url.
-   2. Banner image: upload to assets/images/video-banner.jpg in your theme
-      (or change $vf_banner_file). Until it exists, YouTube's thumbnail is used.
-   3. Blog text beside the video: $vf_blog_post_id = 0 shows your latest
-      published post. Put a post ID (number) to show a specific post.
-   This section is ALWAYS visible, even before you add the link.
+   - 1 video   -> one big centred card
+   - 2 videos  -> two big centred cards
+   - 3 videos  -> three cards in a row
+   - 4+ videos -> 3 per view + round › ‹ buttons to scroll the rest
+     (tablet shows 2 per view, mobile shows 1)
+
+   TO ADD A NEW VIDEO: copy one block inside $vf_videos, paste it
+   at the end of the list and change the values. That's all.
+
+   BANNER (optional) can be:
+     - a file name inside theme /assets/images/   e.g. 'login-register.png'
+     - a full URL (WordPress Media Library image)
+     - left out -> the YouTube thumbnail is used
+   Best banner size: 1280 x 720 (16:9).
    ============================================================ */
-$vf_video_url    = 'https://youtu.be/N8sJzjsyW0o?si=87x3s_zGkCxXd0oA';
-// $vf_video_title  = 'How to connect your Whatsapp Business Account with VistaarFlow CRM';
-$vf_banner_file  = 'video-banner.jpg';
-// $vf_blog_post_id = 0;
 
-$vf_video_id = '';
-if (preg_match('~(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|shorts/|live/))([A-Za-z0-9_-]{11})~', $vf_video_url, $vf_m)) {
-  $vf_video_id = $vf_m[1];
+/* ---------- Section text (edit freely) ---------- */
+$vf_eyebrow   = 'WATCH & LEARN';
+$vf_heading   = 'Learn VistaarFlow <em>step by step.</em>';
+$vf_subtext   = 'Short, practical video guides to help you set up your account, connect WhatsApp and get your team working from one CRM.';
+
+/* true  = newest (last added) video shows first
+   false = videos show in the order written below */
+$vf_newest_first = false;
+
+/* ---------- Your videos ---------- */
+$vf_videos = [
+  [
+    'url'    => 'https://youtu.be/1o_iBzbBBfI',
+    'title'  => 'How to Register & Login to VistaarFlow CRM!',
+    'tag'    => 'Login & Register',
+    'banner' => 'login&register.png',
+  ],
+  [
+    'url'    => 'https://youtu.be/N8sJzjsyW0o',
+    'title'  => 'How to connect your WhatsApp Business Account with VistaarFlow CRM',
+    'tag'    => 'WhatsApp',
+    'banner' => 'video-banner.jpg',
+  ],
+  
+
+  /* ---- COPY THIS BLOCK FOR EVERY NEW VIDEO ----
+  [
+    'url'    => 'https://youtu.be/XXXXXXXXXXX',
+    'title'  => 'Your video title',
+    'tag'    => 'Pipeline',
+    'banner' => 'banner-pipeline.jpg',
+  ],
+  ---------------------------------------------- */
+];
+
+/* ---------- Process the list ---------- */
+$vf_list     = [];
+$vf_problems = [];
+
+foreach ($vf_videos as $v) {
+  $url = isset($v['url']) ? $v['url'] : '';
+  $id  = '';
+  if (preg_match('~(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|shorts/|live/))([A-Za-z0-9_-]{11})~', $url, $m)) {
+    $id = $m[1];
+  }
+  if (!$id) {
+    $vf_problems[] = 'Invalid YouTube link skipped: ' . $url;
+    continue;
+  }
+
+  $thumb  = '';
+  $banner = isset($v['banner']) ? $v['banner'] : '';
+  if ($banner) {
+    if (preg_match('~^https?://~i', $banner)) {
+      $thumb = $banner;
+    } elseif (file_exists(get_template_directory() . '/assets/images/' . $banner)) {
+      $thumb = get_template_directory_uri() . '/assets/images/' . rawurlencode($banner);
+    } else {
+      $vf_problems[] = 'Banner not found in /assets/images/: ' . $banner . ' (YouTube thumbnail used instead)';
+    }
+  }
+  if (!$thumb) {
+    $thumb = 'https://i.ytimg.com/vi/' . $id . '/maxresdefault.jpg';
+  }
+
+  $vf_list[] = [
+    'id'       => $id,
+    'title'    => isset($v['title']) ? $v['title'] : 'VistaarFlow video',
+    'tag'      => isset($v['tag']) ? $v['tag'] : '',
+    'thumb'    => $thumb,
+    'fallback' => 'https://i.ytimg.com/vi/' . $id . '/hqdefault.jpg',
+  ];
 }
 
-$vf_banner_src  = '';
-$vf_banner_path = get_template_directory() . '/assets/images/' . $vf_banner_file;
-if (file_exists($vf_banner_path)) {
-  $vf_banner_src = get_template_directory_uri() . '/assets/images/' . $vf_banner_file;
-} elseif ($vf_video_id) {
-  $vf_banner_src = 'https://i.ytimg.com/vi/' . $vf_video_id . '/hqdefault.jpg';
+if ($vf_newest_first) {
+  $vf_list = array_reverse($vf_list);
 }
-
-// $vf_blog_post = $vf_blog_post_id ? get_post($vf_blog_post_id) : null;
-// if (!$vf_blog_post) {
-//   $vf_latest    = get_posts(['numberposts' => 1, 'post_status' => 'publish']);
-//   $vf_blog_post = $vf_latest ? $vf_latest[0] : null;
-// }
-// ?>
+$vf_total = count($vf_list);
+?>
+<?php if ($vf_total > 0): ?>
 <style id="vistaarflow-video-section">
   .video-section {
-    background: linear-gradient(180deg, #ffffff 0%, #f5f8ff 100%);
-    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(1200px 500px at 15% 0%, rgba(33, 90, 248, .45), transparent 60%),
+                linear-gradient(180deg, #031649 0%, #06235f 100%);
+    padding: 96px 0 88px;
   }
 
   .video-head {
     text-align: center;
-    max-width: 760px;
-    margin: 0 auto 40px;
+    max-width: 820px;
+    margin: 0 auto 52px;
+    padding: 0 20px;
   }
 
-  .video-head h2 {
-    margin: 14px 0 14px;
-  }
+  .video-head h2 { margin: 14px 0 16px; color: #fff; }
+  .video-head h2 em { color: #8fb0ff; }
+  .video-head .eyebrow { color: #b9ccff; }
 
   .video-head p {
-    color: #475069;
-    font-size: 17px;
+    color: #c5d2f3;
+    font-size: 18px;
     line-height: 1.7;
     margin: 0;
   }
 
-  .vf-video-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: 36px;
-    align-items: center;
+  /* ---------- Wide wrapper ---------- */
+  .vf-wide {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 0 64px;
   }
 
-  .vf-video-layout.vf-no-post {
-    grid-template-columns: minmax(0, 960px);
-    justify-content: center;
+  .vf-slider {
+    --gap: 30px;
+    position: relative;
+  }
+
+  .vf-track {
+    display: flex;
+    gap: var(--gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 8px 2px 34px;
+  }
+
+  .vf-track::-webkit-scrollbar { display: none; }
+
+  /* Auto margins centre the cards when there is free space (few videos)
+     and collapse to 0 automatically when the row scrolls (many videos). */
+  .vf-card:first-child { margin-left: auto; }
+  .vf-card:last-child  { margin-right: auto; }
+
+  /* Default: 3 cards per view */
+  .vf-card {
+    flex: 0 0 calc((100% - (var(--gap) * 2)) / 3);
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 34px 60px -28px rgba(0, 0, 0, .6);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+
+  .vf-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 44px 70px -28px rgba(0, 0, 0, .7);
+  }
+
+  /* Exactly 2 videos: two big cards */
+  .vf-n-2 .vf-card {
+    flex-basis: min(640px, calc((100% - var(--gap)) / 2));
+  }
+
+  /* Exactly 1 video: one big card */
+  .vf-n-1 .vf-card {
+    flex-basis: min(760px, 100%);
   }
 
   .vf-video {
     position: relative;
     aspect-ratio: 16 / 9;
-    border-radius: 22px;
-    overflow: hidden;
     background: linear-gradient(135deg, #031649, #215af8);
-    box-shadow: 0 34px 70px -30px rgba(3, 22, 73, .45);
   }
 
   .vf-video-play,
@@ -1164,194 +1278,264 @@ if (file_exists($vf_banner_path)) {
   }
 
   .vf-video-play:hover img {
-    transform: scale(1.03);
-    filter: brightness(.88);
+    transform: scale(1.04);
+    filter: brightness(.82);
   }
 
-  /* YouTube logo in the middle of the banner */
   .vf-yt-logo {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 104px;
+    width: 96px;
     height: auto;
-    margin: -37px 0 0 -52px;
-    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .4));
+    margin: -34px 0 0 -48px;
+    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .45));
     transition: transform .25s ease;
   }
 
-  .vf-yt-logo .vf-yt-bg {
-    fill: #ff0000;
-    transition: fill .25s ease;
-  }
-
-  .vf-video-play:hover .vf-yt-logo {
-    transform: scale(1.1);
-  }
-
-  .vf-video-play:hover .vf-yt-bg {
-    fill: #cc0000;
-  }
+  .vf-yt-logo .vf-yt-bg { fill: #ff0000; transition: fill .25s ease; }
+  .vf-video-play:hover .vf-yt-logo { transform: scale(1.12); }
+  .vf-video-play:hover .vf-yt-bg { fill: #cc0000; }
 
   .vf-video-play:focus-visible {
-    outline: 3px solid #215af8;
+    outline: 3px solid #8fb0ff;
     outline-offset: -3px;
   }
 
-  /* Blog content card */
-  .vf-blog-card {
-    background: #fff;
-    border: 1px solid #dbe3f5;
-    border-radius: 22px;
-    padding: 32px;
-    box-shadow: 0 24px 50px -30px rgba(3, 22, 73, .3);
-  }
+  .vf-card-body { padding: 22px 26px 26px; flex: 1; }
 
-  .vf-blog-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: #6b7590;
-    margin-bottom: 14px;
-  }
-
-  .vf-blog-cat {
+  .vf-card-tag {
+    display: inline-block;
     background: #e4ecff;
     color: #215af8;
     font-weight: 700;
     font-size: 12px;
-    letter-spacing: .06em;
+    letter-spacing: .07em;
     text-transform: uppercase;
-    padding: 5px 10px;
+    padding: 5px 11px;
     border-radius: 999px;
+    margin-bottom: 12px;
   }
 
-  .vf-blog-card h3 {
-    margin: 0 0 12px;
-    font-size: 24px;
-    line-height: 1.25;
+  .vf-card-title {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 800;
     color: #0b1220;
   }
 
-  .vf-blog-card h3 a {
-    color: inherit;
-    text-decoration: none;
+  /* ---------- Nav buttons ---------- */
+  .vf-nav {
+    position: absolute;
+    top: calc(50% - 60px);
+    width: 54px;
+    height: 54px;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #215af8;
+    font-size: 32px;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+    padding: 0 0 4px;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 12px 30px -6px rgba(0, 0, 0, .55);
+    transition: transform .2s ease, background .2s ease, color .2s ease, opacity .2s ease;
   }
 
-  .vf-blog-card p {
-    margin: 0 0 20px;
-    font-size: 15.5px;
-    line-height: 1.7;
-    color: #475069;
-  }
+  .vf-nav:hover { background: #215af8; color: #fff; transform: scale(1.1); }
+  .vf-nav:focus-visible { outline: 3px solid #8fb0ff; outline-offset: 2px; }
+  .vf-prev { left: -34px; }
+  .vf-next { right: -34px; }
+  .vf-nav[hidden] { display: none; }
+  .vf-nav:disabled { opacity: 0; pointer-events: none; }
 
-  .vf-admin-note {
-    margin: 14px 0 0;
-    padding: 12px 16px;
-    border: 1px dashed #d9a400;
-    background: #fff8dc;
-    border-radius: 12px;
-    color: #5a4500;
+  .vf-counter {
+    text-align: center;
+    color: #c5d2f3;
     font-size: 14px;
+    letter-spacing: .04em;
+    margin: 4px 0 0;
+    min-height: 1em;
   }
 
+  /* Laptop */
+  @media (max-width: 1200px) {
+    .vf-wide { padding: 0 56px; }
+    .vf-slider { --gap: 24px; }
+  }
+
+  /* Tablet: 2 per view */
   @media (max-width: 980px) {
-    .vf-video-layout {
-      grid-template-columns: minmax(0, 1fr);
-    }
+    .video-section { padding: 72px 0; }
+    .vf-wide { padding: 0 40px; }
+    .vf-card,
+    .vf-n-2 .vf-card { flex-basis: calc((100% - var(--gap)) / 2); }
+    .vf-n-1 .vf-card { flex-basis: min(640px, 100%); }
+    .vf-prev { left: -24px; }
+    .vf-next { right: -24px; }
   }
 
-  @media (max-width: 720px) {
-    .video-section {
-      padding: 56px 0;
-    }
+  /* Phone: 1 per view */
+  @media (max-width: 640px) {
+    .video-section { padding: 56px 0; }
+    .video-head p { font-size: 16px; }
+    .vf-wide { padding: 0 16px; }
+    .vf-slider { --gap: 16px; }
+    .vf-card,
+    .vf-n-2 .vf-card,
+    .vf-n-1 .vf-card { flex-basis: 90%; border-radius: 18px; }
+    .vf-n-1 .vf-card { flex-basis: 100%; }
+    .vf-card-body { padding: 18px 20px 22px; }
+    .vf-card-title { font-size: 18px; }
+    .vf-yt-logo { width: 72px; margin: -26px 0 0 -36px; }
+    .vf-nav { width: 44px; height: 44px; font-size: 28px; }
+    .vf-prev { left: 4px; }
+    .vf-next { right: 4px; }
+  }
 
-    .vf-video {
-      border-radius: 14px;
-    }
-
-    .vf-yt-logo {
-      width: 72px;
-      margin: -26px 0 0 -36px;
-    }
-
-    .vf-blog-card {
-      padding: 24px;
-    }
-
-    .vf-blog-card h3 {
-      font-size: 21px;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .vf-track { scroll-behavior: auto; }
+    .vf-card, .vf-card:hover { transition: none; transform: none; }
   }
 </style>
 
 <section class="video-section" aria-labelledby="video-title">
-  <div class="container">
-    <div class="video-head">
-      <div class="eyebrow">WATCH &amp; LEARN</div>
-      <h2 id="video-title">Connect WhatsApp to your CRM <em>in just a few minutes.</em></h2>
-      <p>See how to link your WhatsApp Business account with VistaarFlow, so every enquiry becomes a contact and your whole team can reply, follow up and track opportunities from one shared inbox.</p>
-    </div>
+  <div class="video-head">
+    <div class="eyebrow"><?php echo esc_html($vf_eyebrow); ?></div>
+    <h2 id="video-title"><?php echo wp_kses($vf_heading, ['em' => []]); ?></h2>
+    <p><?php echo esc_html($vf_subtext); ?></p>
+  </div>
 
-    <div class="vf-video-layout<?php echo $vf_blog_post ? '' : ' vf-no-post'; ?>">
-      <div>
-        <div class="vf-video">
-          <button class="vf-video-play" type="button"
-            data-video-id="<?php echo esc_attr($vf_video_id); ?>"
-            data-video-title="<?php echo esc_attr($vf_video_title); ?>"
-            aria-label="<?php echo esc_attr('Play video: ' . $vf_video_title); ?>">
-            <?php if ($vf_banner_src): ?>
-              <img src="<?php echo esc_url($vf_banner_src); ?>" alt="" loading="lazy" decoding="async" width="1280"
-                height="720">
-            <?php endif; ?>
-            <svg class="vf-yt-logo" viewBox="0 0 68 48" aria-hidden="true">
-              <path class="vf-yt-bg"
-                d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" />
-              <path d="M45 24 27 14v20z" fill="#fff" />
-            </svg>
-          </button>
-        </div>
-        <?php if (!$vf_video_id && current_user_can('manage_options')): ?>
-          <p class="vf-admin-note">Admin notice (visitors can't see this): add your YouTube link in
-            <code>$vf_video_url</code> in front-page.php so the video can play.</p>
-        <?php endif; ?>
+  <div class="vf-wide">
+    <div class="vf-slider vf-n-<?php echo (int) min($vf_total, 3); ?>" data-vf-slider data-total="<?php echo (int) $vf_total; ?>">
+      <button class="vf-nav vf-prev" type="button" aria-label="Previous videos" disabled hidden>&#8249;</button>
+
+      <div class="vf-track" tabindex="0" aria-label="VistaarFlow video tutorials">
+        <?php foreach ($vf_list as $vf_v): ?>
+          <article class="vf-card">
+            <div class="vf-video">
+              <button class="vf-video-play" type="button"
+                data-video-id="<?php echo esc_attr($vf_v['id']); ?>"
+                data-video-title="<?php echo esc_attr($vf_v['title']); ?>"
+                aria-label="<?php echo esc_attr('Play video: ' . $vf_v['title']); ?>">
+                <img src="<?php echo esc_url($vf_v['thumb']); ?>" alt="" loading="lazy" decoding="async" width="1280" height="720"
+                  onerror="this.onerror=null;this.src='<?php echo esc_url($vf_v['fallback']); ?>';">
+                <svg class="vf-yt-logo" viewBox="0 0 68 48" aria-hidden="true">
+                  <path class="vf-yt-bg"
+                    d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" />
+                  <path d="M45 24 27 14v20z" fill="#fff" />
+                </svg>
+              </button>
+            </div>
+            <div class="vf-card-body">
+              <?php if ($vf_v['tag']): ?>
+                <span class="vf-card-tag"><?php echo esc_html($vf_v['tag']); ?></span>
+              <?php endif; ?>
+              <h3 class="vf-card-title"><?php echo esc_html($vf_v['title']); ?></h3>
+            </div>
+          </article>
+        <?php endforeach; ?>
       </div>
 
-      <?php if ($vf_blog_post):
-        $vf_cats = get_the_category($vf_blog_post->ID);
-        $vf_cat  = $vf_cats ? $vf_cats[0]->name : 'Insights';
-        ?>
-        <article class="vf-blog-card">
-          <div class="vf-blog-meta">
-            <span class="vf-blog-cat"><?php echo esc_html($vf_cat); ?></span>
-            <span><?php echo esc_html(get_the_date('', $vf_blog_post)); ?></span>
-          </div>
-          <h3><a href="<?php echo esc_url(get_permalink($vf_blog_post)); ?>"><?php echo esc_html(get_the_title($vf_blog_post)); ?></a></h3>
-          <p><?php echo esc_html(wp_trim_words(get_the_excerpt($vf_blog_post), 38)); ?></p>
-          <a class="button" href="<?php echo esc_url(get_permalink($vf_blog_post)); ?>">Read the full article <span>→</span></a>
-        </article>
-      <?php endif; ?>
+      <button class="vf-nav vf-next" type="button" aria-label="Next videos" hidden>&#8250;</button>
     </div>
+
+    <p class="vf-counter" aria-live="polite"></p>
   </div>
 </section>
 
 <script>
   (function () {
-    var btn = document.querySelector('.vf-video-play');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      if (!btn.dataset.videoId) return;
+    var slider = document.querySelector('[data-vf-slider]');
+    if (!slider) return;
+
+    var track = slider.querySelector('.vf-track');
+    var prev = slider.querySelector('.vf-prev');
+    var next = slider.querySelector('.vf-next');
+    var counter = slider.parentNode.querySelector('.vf-counter');
+    var total = parseInt(slider.dataset.total, 10) || 0;
+    var originals = new WeakMap();
+
+    /* ---- Click to play (only one video plays at a time) ---- */
+    track.addEventListener('click', function (e) {
+      var btn = e.target.closest('.vf-video-play');
+      if (!btn || !btn.dataset.videoId) return;
+
+      // put any other playing video back to its banner
+      track.querySelectorAll('.vf-video iframe').forEach(function (old) {
+        var orig = originals.get(old);
+        if (orig) old.parentNode.replaceChild(orig, old);
+      });
+
       var f = document.createElement('iframe');
       f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.videoId + '?autoplay=1&rel=0';
-      f.title = btn.dataset.videoTitle;
+      f.title = btn.dataset.videoTitle || 'Video';
       f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
       f.allowFullscreen = true;
+      originals.set(f, btn);
       btn.parentNode.replaceChild(f, btn);
     });
+
+    /* ---- Slider ---- */
+    function cardWidth() {
+      var card = track.querySelector('.vf-card');
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card ? card.offsetWidth + gap : track.clientWidth;
+    }
+
+    function perView() {
+      return Math.max(1, Math.round(track.clientWidth / cardWidth()));
+    }
+
+    function update() {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      var scrollable = max > 0;
+      prev.hidden = next.hidden = !scrollable;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max;
+
+      if (!counter) return;
+      if (!scrollable) { counter.textContent = ''; return; }
+      var first = Math.round(track.scrollLeft / cardWidth()) + 1;
+      var last = next.disabled ? total : Math.min(total, first + perView() - 1);
+      counter.textContent = first + (last > first ? '\u2013' + last : '') + ' of ' + total + ' videos';
+    }
+
+    next.addEventListener('click', function () {
+      track.scrollBy({ left: cardWidth() * perView(), behavior: 'smooth' });
+    });
+    prev.addEventListener('click', function () {
+      track.scrollBy({ left: -cardWidth() * perView(), behavior: 'smooth' });
+    });
+
+    track.addEventListener('keydown', function (e) {
+      if (e.target !== track) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); prev.click(); }
+    });
+
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    window.addEventListener('load', update);
+    update();
   })();
 </script>
+<?php endif; ?>
+
+<?php if ($vf_problems && current_user_can('manage_options')): ?>
+  <div style="max-width:900px;margin:18px auto;padding:12px 16px;border:1px dashed #d9a400;background:#fff8dc;border-radius:12px;color:#5a4500;font-size:14px;">
+    <strong>Admin notice (visitors can't see this) - video section:</strong>
+    <ul style="margin:8px 0 0 18px;">
+      <?php foreach ($vf_problems as $vf_p): ?>
+        <li><?php echo esc_html($vf_p); ?></li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+<?php endif; ?> 
 
   <section class="logo-strip">
     <div class="container"><span>Connect the tools your team already loves</span>
