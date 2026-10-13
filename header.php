@@ -369,11 +369,7 @@ if (!defined('ABSPATH')) {
 
             <li class="menu-item menu-item-has-children industries-menu">
 
-              <a href="<?php
-              echo esc_url(
-                home_url('/industries')
-              );
-              ?>">
+              <a>
 
                 Industries
 

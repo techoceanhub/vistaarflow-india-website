@@ -1097,7 +1097,7 @@ $vf_videos = [
     'url'    => 'https://youtu.be/1o_iBzbBBfI',
     'title'  => 'How to Register & Login to VistaarFlow CRM!',
     'tag'    => 'Login & Register',
-    'banner' => 'login&register.png',
+    'banner' => 'login&register2.png',
   ],
   [
     'url'    => 'https://youtu.be/N8sJzjsyW0o',
