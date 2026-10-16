@@ -10,7 +10,7 @@
           follow-ups, manage pipelines, and close more opportunities from one place.</p>
         <div class="hero-actions">
   <a class="button" href="https://app.vistaarflow.in/signup">Start 14 days free-trial <span>→</span></a>
-  <a class="button2" href="<?php echo esc_url(home_url('/contact')); ?>"><i>▶</i> Schedule Demo</a>
+  <a class="button2" href="https://app.vistaarflow.in/signup"><i>▶</i> Sign Up & Watch Demo</a>
 </div>
         <div class="trust-row">
           <div class="avatars"><b>VK</b><b>AM</b><b>RS</b><b>+</b></div>
@@ -1104,6 +1104,12 @@ $vf_videos = [
     'title'  => 'How to connect your WhatsApp Business Account with VistaarFlow CRM',
     'tag'    => 'WhatsApp',
     'banner' => 'video-banner.jpg',
+  ],
+  [
+    'url'    => 'https://youtu.be/Bhl1gzHfOxM?si=SE87vsQWdexKnNVp',
+    'title'  => 'Learn how to connect your Facebook Ads account with VistaarFlow CRM to capture and manage leads seamlessly.',
+    'tag'    => 'Facebook Lead',
+    'banner' => 'facebookleads.png',
   ],
   
 
